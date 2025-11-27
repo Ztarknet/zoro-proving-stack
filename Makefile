@@ -3,7 +3,8 @@
         cairo-prove-build test-prove-fib test-verify-fib test-prove-blake2b test-verify-blake2b test-prove-blake2s test-verify-blake2s \
         test-prove-all test-verify-all test-full-fib test-full-blake2b test-full-blake2s \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
-        cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test
+        cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
+        air-codegen air-codegen-all air-write-json
 
 # Directories
 BUILD_DIR := target/tests
@@ -175,3 +176,39 @@ zoro-build:
 
 zoro-test:
 	cd zoro && scarb cairo-test
+
+# =============================================================================
+# AIR Code Generation (stwo-air-infra -> stwo-cairo)
+# =============================================================================
+# Generate Rust/Cairo constraint code from compiled AIR JSON files
+#
+# Usage:
+#   make air-codegen       # Generate code for supported AIRs only
+#   make air-codegen-all   # Generate code for ALL AIRs (including blake2b)
+#   make air-write-json    # Recompile AIR definitions to JSON
+# =============================================================================
+
+AIR_INFRA_DIR := stwo-air-infra
+AIR_JSON_SOURCE := $(AIR_INFRA_DIR)/crates/compiled_casm_air/src/compiled_jsons
+STWO_CAIRO_DIR := stwo-cairo
+
+# Destination paths in stwo-cairo
+RUST_CONSTRAINTS_DEST := $(STWO_CAIRO_DIR)/stwo_cairo_prover/crates/cairo-air/src/components
+WITNESS_DEST := $(STWO_CAIRO_DIR)/stwo_cairo_prover/crates/prover/src/witness
+CAIRO_CONSTRAINTS_DEST := $(STWO_CAIRO_DIR)/stwo_cairo_verifier/crates/verifier_core/src/constraints
+
+# Generate code for ALL AIRs into stwo-cairo
+air-codegen:
+	@mkdir -p $(CAIRO_CONSTRAINTS_DEST)/subroutines
+	cd $(AIR_INFRA_DIR) && cargo run --bin cairo_code_gen -- generate-stwo-cairo \
+		--source crates/compiled_casm_air/src \
+		--stwo-cairo-path ../$(STWO_CAIRO_DIR)
+
+# Alias for air-codegen (both now generate all AIRs)
+air-codegen-all: air-codegen
+
+# Recompile AIR definitions to JSON (run this after modifying AIR definitions)
+air-write-json:
+	@echo "Writing AIR JSONs..."
+	@echo "Available opcodes: fib, bit-unpack, ret, assert-eq, call, jump"
+	@echo "Use: cd $(AIR_INFRA_DIR) && cargo run -p air_infra -- write-json <opcode>"
