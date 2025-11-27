@@ -22,35 +22,49 @@ zoro/
 
 ## Build Commands
 
+### Root Makefile Targets
+
+**Subproject Builds:**
+```bash
+make cairo-build          # Build Cairo compiler (requires rust +1.89)
+make cairo-vm-build       # Build Cairo VM
+make stwo-cairo-build     # Build Stwo Cairo prover
+make stwo-air-infra-build # Build AIR infrastructure
+make zoro-build           # Build main Zoro project (release)
+```
+
+**Testing:**
+```bash
+make test-build           # Build tests with scarb
+make test-execute         # Run tests with scarb (print output)
+make test-run-fib         # Compile and run fibonacci test
+make test-run-blake2b     # Compile and run blake2b test
+```
+
+**Proving Pipeline:**
+```bash
+make cairo-prove-build    # Build cairo-prove CLI (one-time)
+make test-prove-fib       # Generate STARK proof for fibonacci
+make test-verify-fib      # Verify fibonacci proof
+make test-full-fib        # Full pipeline: compile -> prove -> verify
+make test-full-blake2b    # Full pipeline for blake2b
+```
+
+**Subproject Tests:**
+```bash
+make cairo-test           # Test Cairo compiler
+make cairo-vm-test        # Test Cairo VM (requires: make cairo-vm-deps first)
+make stwo-cairo-test      # Test Stwo Cairo prover
+make stwo-air-infra-test  # Test AIR infrastructure
+make zoro-test            # Test Zoro packages
+```
+
 ### Main Zoro Project (Cairo)
 ```bash
 cd zoro
-
-# Build all packages
-scarb build
-
-# Build client for proving
-scarb --profile release build --package client --target-kinds executable
-
-# Run tests
-scarb test
-
-# Format Cairo code
-scarb fmt
-```
-
-### Tests Directory
-```bash
-# Build test executable
-make test-build
-
-# Execute tests with output
-make test-execute
-```
-
-### Installing Dependencies (from zoro/zoro/)
-```bash
-make install  # Installs all dependencies (bootloader-hints, stwo, cairo-execute, etc.)
+scarb build               # Build all packages
+scarb test                # Run tests
+scarb fmt                 # Format Cairo code
 ```
 
 ## Cairo Packages (zoro/zoro/packages/)
@@ -71,21 +85,17 @@ scarb run client START_HEIGHT END_HEIGHT BATCH_SIZE MODE STRATEGY
 
 ## Working with Subprojects
 
-Each subproject has its own CLAUDE.md with detailed instructions:
+Each subproject has its own CLAUDE.md. Use root Makefile targets for builds (see above).
 
 ### Cairo Compiler (cairo/)
 - AST is auto-generated: read `crates/cairo-lang-syntax-codegen/src/generator.rs`, NOT `ast.rs`
-- Format: `./scripts/rust_fmt.sh`
-- Lint: `./scripts/clippy.sh`
+- Format: `./scripts/rust_fmt.sh` | Lint: `./scripts/clippy.sh`
 
 ### Cairo VM (cairo-vm/)
-- Build: `cargo build --release`
-- Test: `make test`
 - Layouts: Use `all_cairo` for general purpose
+- Run `make cairo-vm-deps` before `make cairo-vm-test`
 
 ### Stwo Prover (stwo-cairo/)
-- Prove: `cairo-prove prove <executable.json> <output.json> --arguments <args>`
-- Verify: `cairo-prove verify <proof.json>`
 - Cairo programs must have `enable-gas = false`
 
 ## Architecture
@@ -121,7 +131,9 @@ Implementing Blake2b opcode for Zcash Equihash PoW verification.
 
 ### Testing Blake2b
 ```bash
-cd stwo-air-infra && cargo test blake2b
+make test-run-blake2b       # Run blake2b test
+make test-full-blake2b      # Full prove/verify pipeline
+make stwo-air-infra-test    # AIR tests (includes blake2b)
 ```
 
 ## Contribution Guidelines
