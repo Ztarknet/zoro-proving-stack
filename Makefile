@@ -1,7 +1,7 @@
-.PHONY: test-build test-execute test-run-fib test-run-blake2b test-run-all \
-        test-compile-fib test-compile-blake2b test-exec-fib test-exec-blake2b \
-        cairo-prove-build test-prove-fib test-verify-fib test-prove-blake2b test-verify-blake2b \
-        test-prove-all test-verify-all test-full-fib test-full-blake2b \
+.PHONY: test-build test-execute test-run-fib test-run-blake2b test-run-blake2s test-run-all \
+        test-compile-fib test-compile-blake2b test-compile-blake2s test-exec-fib test-exec-blake2b test-exec-blake2s \
+        cairo-prove-build test-prove-fib test-verify-fib test-prove-blake2b test-verify-blake2b test-prove-blake2s test-verify-blake2s \
+        test-prove-all test-verify-all test-full-fib test-full-blake2b test-full-blake2s \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test
 
@@ -46,6 +46,13 @@ test-compile-blake2b: $(BUILD_DIR)
 		--output-path $(BUILD_DIR)/blake2b_exec.json \
 		tests/src/blake2b_test.cairo
 
+test-compile-blake2s: $(BUILD_DIR)
+	$(CAIRO_EXECUTE) \
+		--single-file \
+		--build-only \
+		--output-path $(BUILD_DIR)/blake2s_exec.json \
+		tests/src/blake2s_test.cairo
+
 # Step 2: Execute prebuilt test executables
 test-exec-fib:
 	$(CAIRO_EXECUTE) \
@@ -63,10 +70,20 @@ test-exec-blake2b:
 		--output-path $(BUILD_DIR)/blake2b.pie \
 		$(BUILD_DIR)/blake2b_exec.json
 
+test-exec-blake2s:
+	$(CAIRO_EXECUTE) \
+		--prebuilt \
+		--layout all_cairo \
+		--print-outputs \
+		--output-path $(BUILD_DIR)/blake2s.pie \
+		$(BUILD_DIR)/blake2s_exec.json
+
 # Combined: compile and run in one command
 test-run-fib: test-compile-fib test-exec-fib
 
 test-run-blake2b: test-compile-blake2b test-exec-blake2b
+
+test-run-blake2s: test-compile-blake2s test-exec-blake2s
 
 # Run all tests
 test-run-all: test-run-fib
@@ -99,12 +116,20 @@ test-prove-blake2b: test-compile-blake2b
 		$(BUILD_DIR)/blake2b_exec.json \
 		$(BUILD_DIR)/blake2b_proof.json
 
+test-prove-blake2s: test-compile-blake2s
+	$(CAIRO_PROVE) prove \
+		$(BUILD_DIR)/blake2s_exec.json \
+		$(BUILD_DIR)/blake2s_proof.json
+
 # Verify proofs
 test-verify-fib:
 	$(CAIRO_PROVE) verify $(BUILD_DIR)/fibonacci_proof.json
 
 test-verify-blake2b:
 	$(CAIRO_PROVE) verify $(BUILD_DIR)/blake2b_proof.json
+
+test-verify-blake2s:
+	$(CAIRO_PROVE) verify $(BUILD_DIR)/blake2s_proof.json
 
 # Combined targets
 test-prove-all: test-prove-fib
@@ -115,6 +140,8 @@ test-verify-all: test-verify-fib
 test-full-fib: test-prove-fib test-verify-fib
 
 test-full-blake2b: test-prove-blake2b test-verify-blake2b
+
+test-full-blake2s: test-prove-blake2s test-verify-blake2s
 
 stwo-air-infra-build:
 	cd stwo-air-infra && cargo build --release
