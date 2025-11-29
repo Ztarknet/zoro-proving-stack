@@ -1,6 +1,6 @@
 .PHONY: test-build test-execute test-run-fib test-run-blake2b test-run-blake2s test-run-all \
         test-compile-fib test-compile-blake2b test-compile-blake2s test-exec-fib test-exec-blake2b test-exec-blake2s \
-        cairo-prove-build test-prove-fib test-verify-fib test-prove-blake2b test-verify-blake2b test-prove-blake2s test-verify-blake2s \
+        stwo-prover-build test-prove-fib test-verify-fib test-prove-blake2b test-verify-blake2b test-prove-blake2s test-verify-blake2s \
         test-prove-all test-verify-all test-full-fib test-full-blake2b test-full-blake2s \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
@@ -9,7 +9,7 @@
 # Directories
 BUILD_DIR := target/tests
 CAIRO_EXECUTE := ./cairo/target/release/cairo-execute
-CAIRO_PROVE := ./stwo-cairo/cairo-prove/target/release/cairo-prove
+STWO_PROVER_DIR := ./stwo-cairo/stwo_cairo_prover
 
 # Test targets using scarb
 test-build:
@@ -90,47 +90,60 @@ test-run-blake2s: test-compile-blake2s test-exec-blake2s
 test-run-all: test-run-fib
 
 # =============================================================================
-# Proving and verification targets (using stwo-cairo prover)
+# Proving and verification targets (using stwo_cairo_prover)
 # =============================================================================
-# Generate STARK proofs and verify them using cairo-prove CLI
+# Generate STARK proofs and verify them using stwo_cairo_prover binaries
 #
 # Usage:
-#   make cairo-prove-build   # Build the cairo-prove CLI (one-time)
+#   make stwo-prover-build   # Build the stwo prover binaries (one-time)
 #   make test-prove-fib      # Generate proof for fibonacci test
 #   make test-verify-fib     # Verify fibonacci proof
 #   make test-prove-all      # Generate proofs for all tests
 #   make test-verify-all     # Verify all proofs
+#   make test-full-fib       # Full pipeline: compile -> prove -> verify
 # =============================================================================
 
-# Build cairo-prove CLI
-cairo-prove-build:
-	cd stwo-cairo/cairo-prove && ./build.sh
+# Build stwo_cairo_prover binaries
+stwo-prover-build:
+	cd $(STWO_PROVER_DIR) && cargo build --release
 
-# Prove test programs (generates STARK proof)
+# Prove test programs (generates STARK proof using run_and_prove)
 test-prove-fib: test-compile-fib
-	$(CAIRO_PROVE) prove \
-		$(BUILD_DIR)/fibonacci_exec.json \
-		$(BUILD_DIR)/fibonacci_proof.json
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin run_and_prove -- \
+		--program ../../$(BUILD_DIR)/fibonacci_exec.json \
+		--program_type executable \
+		--proof_path ../../$(BUILD_DIR)/fibonacci_proof.json
 
 test-prove-blake2b: test-compile-blake2b
-	$(CAIRO_PROVE) prove \
-		$(BUILD_DIR)/blake2b_exec.json \
-		$(BUILD_DIR)/blake2b_proof.json
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin run_and_prove -- \
+		--program ../../$(BUILD_DIR)/blake2b_exec.json \
+		--program_type executable \
+		--proof_path ../../$(BUILD_DIR)/blake2b_proof.json
 
 test-prove-blake2s: test-compile-blake2s
-	$(CAIRO_PROVE) prove \
-		$(BUILD_DIR)/blake2s_exec.json \
-		$(BUILD_DIR)/blake2s_proof.json
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin run_and_prove -- \
+		--program ../../$(BUILD_DIR)/blake2s_exec.json \
+		--program_type executable \
+		--proof_path ../../$(BUILD_DIR)/blake2s_proof.json
 
-# Verify proofs
+# Verify proofs (using verify binary)
 test-verify-fib:
-	$(CAIRO_PROVE) verify $(BUILD_DIR)/fibonacci_proof.json
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
+		--proof_path ../../$(BUILD_DIR)/fibonacci_proof.json \
+		--channel_hash blake2s \
+		--pp_trace canonical
 
 test-verify-blake2b:
-	$(CAIRO_PROVE) verify $(BUILD_DIR)/blake2b_proof.json
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
+		--proof_path ../../$(BUILD_DIR)/blake2b_proof.json \
+		--channel_hash blake2s \
+		--pp_trace canonical
 
 test-verify-blake2s:
-	$(CAIRO_PROVE) verify $(BUILD_DIR)/blake2s_proof.json
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
+		--proof_path ../../$(BUILD_DIR)/blake2s_proof.json \
+		--channel_hash blake2s \
+		--pp_trace canonical
 
 # Combined targets
 test-prove-all: test-prove-fib
@@ -143,6 +156,10 @@ test-full-fib: test-prove-fib test-verify-fib
 test-full-blake2b: test-prove-blake2b test-verify-blake2b
 
 test-full-blake2s: test-prove-blake2s test-verify-blake2s
+
+# =============================================================================
+# Subproject build and test targets
+# =============================================================================
 
 stwo-air-infra-build:
 	cd stwo-air-infra && cargo build --release
@@ -211,4 +228,4 @@ air-codegen-all: air-codegen
 air-write-json:
 	@echo "Writing AIR JSONs..."
 	@echo "Available opcodes: fib, bit-unpack, ret, assert-eq, call, jump"
-	@echo "Use: cd $(AIR_INFRA_DIR) && cargo run -p air_infra -- write-json <opcode>"
+	cd $(AIR_INFRA_DIR) && FIX=1 cargo test -p air_infra test_casm_registry --release
