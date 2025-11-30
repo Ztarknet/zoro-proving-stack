@@ -1,0 +1,322 @@
+grep -ir blake --exclude-dir={target,build,compiled_casm_air,cairo-vm-env,cairo_programs,bin}
+✅🛠️⚠️
+- [ ] ./CHANGELOG.md:* dev(BREAKING): Make blake2s API internal [#2265](https://github.com/lambdaclass/cairo-vm/pull/2265)
+- [ ] ./CHANGELOG.md:* feat: Added hints felt unpacking for blake [#2032](https://github.com/lambdaclass/cairo-vm/pull/2032)
+- [ ] ./CHANGELOG.md:* feat: implement `Blake2sLastBlock` opcode in VM [#1932](https://github.com/lambdaclass/cairo-vm/pull/1932)
+- [ ] ./CHANGELOG.md:* feat: implement `Blake2s` opcode in VM [#1927](https://github.com/lambdaclass/cairo-vm/pull/1927)
+- [ ] ./CHANGELOG.md:* fix: Fix string code of `BLAKE2S_ADD_UINT256` hint [#1454](https://github.com/lambdaclass/cairo-vm/pull/1454)
+- [ ] ./CHANGELOG.md:* Implement hint variant for finalize_blake2s[#1072](https://github.com/lambdaclass/cairo-vm/pull/1072)
+- [ ] ./CHANGELOG.md:        from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./CHANGELOG.md:        _blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./CHANGELOG.md:        assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./CHANGELOG.md:        message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./CHANGELOG.md:        output = blake2s_compress(
+- [ ] ./CHANGELOG.md:        segments.write_arg(ids.blake2s_ptr_end, padding)
+- [ ] ./CHANGELOG.md:* Implement hint on cairo_blake2s whitelist [#1040](https://github.com/lambdaclass/cairo-vm/pull/1040)
+- [ ] ./CHANGELOG.md:        from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./CHANGELOG.md:        _blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./CHANGELOG.md:        assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./CHANGELOG.md:        new_state = blake2s_compress(
+- [ ] ./CHANGELOG.md:            message=memory.get_range(ids.blake2s_start, _blake2s_input_chunk_size_felts),
+- [ ] ./CHANGELOG.md:* Implement hint on cairo_blake2s whitelist [#1039](https://github.com/lambdaclass/cairo-vm/pull/1039)
+- [ ] ./CHANGELOG.md:        from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./CHANGELOG.md:        _blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./CHANGELOG.md:        assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./CHANGELOG.md:        message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./CHANGELOG.md:        output = blake2s_compress(
+- [ ] ./CHANGELOG.md:        segments.write_arg(ids.blake2s_ptr_end, padding)
+- [ ] ./fuzzer/src/fuzz_json.rs:    BLAKE2S_COMPUTE,
+- [ ] ./fuzzer/src/fuzz_json.rs:    BLAKE2S_FINALIZE,
+- [ ] ./fuzzer/src/fuzz_json.rs:    BLAKE2S_FINALIZE_V2,
+- [ ] ./fuzzer/src/fuzz_json.rs:    BLAKE2S_FINALIZE_V3,
+- [ ] ./fuzzer/src/fuzz_json.rs:    BLAKE2S_ADD_UINT256,
+- [ ] ./fuzzer/src/fuzz_json.rs:    BLAKE2S_ADD_UINT256_BIGEND,
+- [ ] ./fuzzer/src/fuzz_json.rs:    EXAMPLE_BLAKE2S_COMPRESS,
+- [ ] ./Cargo.lock:name = "blake2"
+- [ ] ./Cargo.lock: "blake2",
+- [ ] ./vm/src/types/instruction.rs:    Blake,
+- [ ] ./vm/src/types/instruction.rs:    BlakeFinalize,
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn blake2s_hello_world_hash() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:    let program_data = include_bytes!("../../../cairo_programs/blake2s_hello_world_hash.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn example_blake2s() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:    let program_data = include_bytes!("../../../cairo_programs/example_blake2s.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn finalize_blake2s() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:    let program_data = include_bytes!("../../../cairo_programs/finalize_blake2s.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn finalize_blake2s_v2_hint() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:    let program_data = include_bytes!("../../../cairo_programs/finalize_blake2s_v2_hint.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn blake2s_felts() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:    let program_data = include_bytes!("../../../cairo_programs/blake2s_felts.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn blake2s_integration_tests() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:    let program_data = include_bytes!("../../../cairo_programs/blake2s_integration_tests.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn blake2s_opcode_test() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:        include_bytes!("../../../cairo_programs/stwo_exclusive_programs/blake2s_opcode_test.json");
+- [ ] ./vm/src/tests/cairo_run_test.rs:fn blake2s_opcode_proof_mode_test() {
+- [ ] ./vm/src/tests/cairo_run_test.rs:        include_bytes!("../../../cairo_programs/stwo_exclusive_programs/blake2s_opcode_test.json");
+- [ ] ./vm/src/vm/decoding/decoder.rs:        1 => OpcodeExtension::Blake,
+- [ ] ./vm/src/vm/decoding/decoder.rs:        2 => OpcodeExtension::BlakeFinalize,
+- [ ] ./vm/src/vm/decoding/decoder.rs:    let blake_flags_valid = opcode == Opcode::NOp
+- [ ] ./vm/src/vm/decoding/decoder.rs:    if (opcode_extension == OpcodeExtension::Blake
+- [ ] ./vm/src/vm/decoding/decoder.rs:        || opcode_extension == OpcodeExtension::BlakeFinalize)
+- [ ] ./vm/src/vm/decoding/decoder.rs:        && !blake_flags_valid
+- [ ] ./vm/src/vm/decoding/decoder.rs:        return Err(VirtualMachineError::InvalidBlake2sFlags(flags & 0x7FFF));
+- [ ] ./vm/src/vm/decoding/decoder.rs:        //            Blake|     CALL|  REGULAR|  REGULAR|      Op1|     FP|     AP|     AP
+- [ ] ./vm/src/vm/decoding/decoder.rs:        assert_matches!(error, Err(VirtualMachineError::InvalidBlake2sFlags(4104)));
+- [ ] ./vm/src/vm/decoding/decoder.rs:    fn decode_blake_imm() {
+- [ ] ./vm/src/vm/decoding/decoder.rs:        //            Blake|      NOP|  REGULAR|  REGULAR|      Op1|    IMM|     AP|     AP
+- [ ] ./vm/src/vm/decoding/decoder.rs:        assert_matches!(error, Err(VirtualMachineError::InvalidBlake2sFlags(4)));
+- [ ] ./vm/src/vm/decoding/decoder.rs:    fn decode_blake() {
+- [ ] ./vm/src/vm/decoding/decoder.rs:        //            Blake|      NOP|     ADD1|  REGULAR|      Op1|     AP|     FP|     FP
+- [ ] ./vm/src/vm/decoding/decoder.rs:        assert_matches!(inst.opcode_extension, OpcodeExtension::Blake);
+- [ ] ./vm/src/vm/errors/vm_errors.rs:    #[error("Blake2s opcode invalid operand: op{0} does not point to {1} u32 numbers.")]
+- [ ] ./vm/src/vm/errors/vm_errors.rs:    Blake2sInvalidOperand(u8, u8),
+- [ ] ./vm/src/vm/errors/vm_errors.rs:    #[error("Blake2s opcode invalid flags {0}")]
+- [ ] ./vm/src/vm/errors/vm_errors.rs:    InvalidBlake2sFlags(u128),
+- [ ] ./vm/src/vm/vm_core.rs:        builtin_hint_processor::blake2s_hash::blake2s_compress,
+- [ ] ./vm/src/vm/vm_core.rs:        if instruction.opcode_extension == OpcodeExtension::Blake
+- [ ] ./vm/src/vm/vm_core.rs:            || instruction.opcode_extension == OpcodeExtension::BlakeFinalize
+- [ ] ./vm/src/vm/vm_core.rs:            self.handle_blake2s_instruction(
+- [ ] ./vm/src/vm/vm_core.rs:                instruction.opcode_extension == OpcodeExtension::BlakeFinalize,
+- [ ] ./vm/src/vm/vm_core.rs:    /// Executes a Blake2s or Blake2sLastBlock instruction.
+- [ ] ./vm/src/vm/vm_core.rs:    /// containing the Blake2s compression output at that index.
+- [ ] ./vm/src/vm/vm_core.rs:    fn handle_blake2s_instruction(
+- [ ] ./vm/src/vm/vm_core.rs:        .map_err(|_| VirtualMachineError::Blake2sInvalidOperand(0, 8))?;
+- [ ] ./vm/src/vm/vm_core.rs:        .map_err(|_| VirtualMachineError::Blake2sInvalidOperand(1, 16))?;
+- [ ] ./vm/src/vm/vm_core.rs:        let new_state = blake2s_compress(&state, &message, counter, 0, f0, 0);
+- [ ] ./vm/src/vm/vm_core.rs:    fn deduce_op0_blake_finalize_add_int_operands() {
+- [ ] ./vm/src/vm/vm_core.rs:            opcode_extension: OpcodeExtension::BlakeFinalize,
+- [ ] ./vm/src/vm/vm_core.rs:    fn deduce_op1_blake_mul_int_operands() {
+- [ ] ./vm/src/vm/vm_core.rs:            opcode_extension: OpcodeExtension::Blake,
+- [ ] ./vm/src/vm/vm_core.rs:    fn compute_res_blake_mul_int_operands() {
+- [ ] ./vm/src/vm/vm_core.rs:            opcode_extension: OpcodeExtension::Blake,
+- [ ] ./vm/src/vm/vm_core.rs:    fn handle_blake2s_instruction_state_too_short() {
+- [ ] ./vm/src/vm/vm_core.rs:            vm.handle_blake2s_instruction(&operands_addresses, false),
+- [ ] ./vm/src/vm/vm_core.rs:    fn handle_blake2s_instruction_message_too_short() {
+- [ ] ./vm/src/vm/vm_core.rs:            vm.handle_blake2s_instruction(&operands_addresses, false),
+- [ ] ./vm/src/vm/vm_core.rs:    fn handle_blake2s_instruction_ap_points_to_inconsistent_memory() {
+- [ ] ./vm/src/vm/vm_core.rs:            vm.handle_blake2s_instruction(&operands_addresses, false),
+- [ ] ./vm/src/vm/vm_core.rs:    fn handle_blake2s_instruction_ok() {
+- [ ] ./vm/src/vm/vm_core.rs:            vm.handle_blake2s_instruction(&operands_addresses, false),
+- [ ] ./vm/src/vm/vm_core.rs:        let expected_new_state: [u32; 8] = blake2s_compress(&state, &message, counter, 0, 0, 0)
+- [ ] ./vm/src/vm/vm_core.rs:    fn handle_blake2s_last_block_instruction_ok() {
+- [ ] ./vm/src/vm/vm_core.rs:            vm.handle_blake2s_instruction(&operands_addresses, true),
+- [ ] ./vm/src/vm/vm_core.rs:            blake2s_compress(&state, &message, counter, 0, 0xffffffff, 0)
+- [ ] ./vm/src/typed_operations.rs:    fn typed_add_blake() {
+- [ ] ./vm/src/typed_operations.rs:        let error = typed_add(a, b, OpcodeExtension::Blake);
+- [ ] ./vm/src/typed_operations.rs:    fn typed_sub_blake() {
+- [ ] ./vm/src/typed_operations.rs:        let error = typed_sub(a, b, OpcodeExtension::Blake);
+- [ ] ./vm/src/typed_operations.rs:    fn typed_mul_blake_finalize() {
+- [ ] ./vm/src/typed_operations.rs:        let error = typed_mul(a, b, OpcodeExtension::BlakeFinalize);
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:            blake2s_hash::{blake2s_compress, IV},
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:/*Helper function for the Cairo blake2s() implementation.
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:Computes the blake2s compress function and fills the value in the right position.
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:fn compute_blake2s_func(vm: &mut VirtualMachine, output_ptr: Relocatable) -> Result<(), HintError> {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        get_maybe_relocatable_array_from_u32(&blake2s_compress(&h, &message, t, 0, f, 0));
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:   from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:   compute_blake2s_func(segments=segments, output_ptr=ids.output)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn compute_blake2s(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    compute_blake2s_func(vm, output)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    _blake2s_input_chunk_size_felts = int(ids.INPUT_BLOCK_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    output = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    segments.write_arg(ids.blake2s_ptr_end, padding)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn finalize_blake2s(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let blake2s_ptr_end = get_ptr_from_var_name("blake2s_ptr_end", vm, ids_data, ap_tracking)?;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let output = blake2s_compress(&modified_iv, &message, 0, 0, 0xffffffff, 0);
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    vm.load_data(blake2s_ptr_end, &data)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        _blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        output = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        segments.write_arg(ids.blake2s_ptr_end, padding)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn finalize_blake2s_v3(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let blake2s_ptr_end = get_ptr_from_var_name("blake2s_ptr_end", vm, ids_data, ap_tracking)?;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let output = blake2s_compress(&modified_iv, &message, 0, 0, 0xffffffff, 0);
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    vm.load_data(blake2s_ptr_end, &data)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn blake2s_add_uint256(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn blake2s_add_uint256_bigend(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn blake2s_unpack_felts(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        _blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        new_state = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:            message=memory.get_range(ids.blake2s_start, _blake2s_input_chunk_size_felts),
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:Note: This hint belongs to the blake2s lib in cario_examples
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:pub fn example_blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let blake2s_start = get_ptr_from_var_name("blake2s_start", vm, ids_data, ap_tracking)?;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let message = get_fixed_size_u32_array::<16>(&vm.get_integer_range(blake2s_start, 16)?)?;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    let new_state = blake2s_compress(&modified_iv, &message, n_bytes, 0, 0xffffffff, 0);
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn compute_blake2s_output_offset_zero() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func\ncompute_blake2s_func(segments=segments, output_ptr=ids.output)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn compute_blake2s_output_empty_segment() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func\ncompute_blake2s_func(segments=segments, output_ptr=ids.output)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn compute_blake2s_output_not_relocatable() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func\ncompute_blake2s_func(segments=segments, output_ptr=ids.output)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn compute_blake2s_output_input_bigger_than_u32() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func\ncompute_blake2s_func(segments=segments, output_ptr=ids.output)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn compute_blake2s_output_input_relocatable() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func\ncompute_blake2s_func(segments=segments, output_ptr=ids.output)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn finalize_blake2s_valid() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "# Add dummy pairs of input and output.\nfrom starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress\n\n_n_packed_instances = int(ids.N_PACKED_INSTANCES)\nassert 0 <= _n_packed_instances < 20\n_blake2s_input_chunk_size_felts = int(ids.INPUT_BLOCK_FELTS)\nassert 0 <= _blake2s_input_chunk_size_felts < 100\n\nmessage = [0] * _blake2s_input_chunk_size_felts\nmodified_iv = [IV[0] ^ 0x01010020] + IV[1:]\noutput = blake2s_compress(\n    message=message,\n    h=modified_iv,\n    t0=0,\n    t1=0,\n    f0=0xffffffff,\n    f1=0,\n)\npadding = (modified_iv + message + [0, 0xffffffff] + output) * (_n_packed_instances - 1)\nsegments.write_arg(ids.blake2s_ptr_end, padding)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let ids_data = ids_data!["blake2s_ptr_end"];
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn finalize_blake2s_invalid_segment_taken() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "# Add dummy pairs of input and output.\nfrom starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress\n\n_n_packed_instances = int(ids.N_PACKED_INSTANCES)\nassert 0 <= _n_packed_instances < 20\n_blake2s_input_chunk_size_felts = int(ids.INPUT_BLOCK_FELTS)\nassert 0 <= _blake2s_input_chunk_size_felts < 100\n\nmessage = [0] * _blake2s_input_chunk_size_felts\nmodified_iv = [IV[0] ^ 0x01010020] + IV[1:]\noutput = blake2s_compress(\n    message=message,\n    h=modified_iv,\n    t0=0,\n    t1=0,\n    f0=0xffffffff,\n    f1=0,\n)\npadding = (modified_iv + message + [0, 0xffffffff] + output) * (_n_packed_instances - 1)\nsegments.write_arg(ids.blake2s_ptr_end, padding)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let ids_data = ids_data!["blake2s_ptr_end"];
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn finalize_blake2s_invalid_no_ids() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = "# Add dummy pairs of input and output.\nfrom starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress\n\n_n_packed_instances = int(ids.N_PACKED_INSTANCES)\nassert 0 <= _n_packed_instances < 20\n_blake2s_input_chunk_size_felts = int(ids.INPUT_BLOCK_FELTS)\nassert 0 <= _blake2s_input_chunk_size_felts < 100\n\nmessage = [0] * _blake2s_input_chunk_size_felts\nmodified_iv = [IV[0] ^ 0x01010020] + IV[1:]\noutput = blake2s_compress(\n    message=message,\n    h=modified_iv,\n    t0=0,\n    t1=0,\n    f0=0xffffffff,\n    f1=0,\n)\npadding = (modified_iv + message + [0, 0xffffffff] + output) * (_n_packed_instances - 1)\nsegments.write_arg(ids.blake2s_ptr_end, padding)";
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:            Err(HintError::UnknownIdentifier(bx)) if bx.as_ref() == "blake2s_ptr_end"
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn blake2s_add_uint256_valid_zero() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn blake2s_add_uint256_valid_non_zero() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn blake2s_add_uint256_bigend_valid_zero() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn blake2s_unpack_felts() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let hint_code = hint_code::BLAKE2S_UNPACK_FELTS;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn blake2s_add_uint256_bigend_valid_non_zero() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn example_blake2s_compress_n_bytes_over_u32() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let ids_data = ids_data!["n_bytes", "output", "blake2s_start"];
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        assert_matches!(run_hint!(vm, ids_data, hint_code::EXAMPLE_BLAKE2S_COMPRESS), Err(HintError::Math(MathError::Felt252ToU32Conversion(bx))) if *bx == Felt252::from(9999999999_u64));
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:    fn example_blake2s_empty_input() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        let ids_data = ids_data!["n_bytes", "output", "blake2s_start"];
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs:        assert_matches!(run_hint!(vm, ids_data, hint_code::EXAMPLE_BLAKE2S_COMPRESS), Err(HintError::Memory(MemoryError::UnknownMemoryCell(bx))) if *bx == (2, 0).into());
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:fn blake_round(mut state: Vec<u32>, message: &[u32; 16], sigma: [usize; 16]) -> Vec<u32> {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:pub fn blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        state = blake_round(state, message, sigma_list);
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_a() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 2, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_b() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 2, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_c() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 9, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_d() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 28, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_e() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 44, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_f() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 64, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:    fn blake2s_compress_test_g() {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs:        let new_state: [u32; 8] = blake2s_compress(&h, &message, 64, 0, 4294967295, 0)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/mod.rs:pub(crate) mod blake2s_hash;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/mod.rs:mod blake2s_utils;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_COMPUTE, indoc! {r#"from starkware.cairo.common.cairo_blake2s.blake2s_utils import compute_blake2s_func
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:compute_blake2s_func(segments=segments, output_ptr=ids.output)"#}),
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_FINALIZE, indoc! {r#"# Add dummy pairs of input and output.
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:_blake2s_input_chunk_size_felts = int(ids.INPUT_BLOCK_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:output = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:segments.write_arg(ids.blake2s_ptr_end, padding)"#}),
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_FINALIZE_V2, indoc! {r#"# Add dummy pairs of input and output.
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:_blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:output = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:segments.write_arg(ids.blake2s_ptr_end, padding)"#}),
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_FINALIZE_V3, indoc! {r#"# Add dummy pairs of input and output.
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:_blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:message = [0] * _blake2s_input_chunk_size_felts
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:output = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:segments.write_arg(ids.blake2s_ptr_end, padding)"#}),
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_ADD_UINT256, indoc! {r#"B = 32
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_ADD_UINT256_BIGEND, indoc! {r#"B = 32
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(BLAKE2S_UNPACK_FELTS, indoc! {r#"offset = 0
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:(EXAMPLE_BLAKE2S_COMPRESS, indoc! {r#"from starkware.cairo.common.cairo_blake2s.blake2s_utils import IV, blake2s_compress
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:_blake2s_input_chunk_size_felts = int(ids.BLAKE2S_INPUT_CHUNK_SIZE_FELTS)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:assert 0 <= _blake2s_input_chunk_size_felts < 100
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:new_state = blake2s_compress(
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/hint_code.rs:    message=memory.get_range(ids.blake2s_start, _blake2s_input_chunk_size_felts),
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:use super::blake2s_utils::example_blake2s_compress;
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:    blake2s_utils::{blake2s_unpack_felts, finalize_blake2s_v3, is_less_than_63_bits_and_not_end},
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            blake2s_utils::{
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                blake2s_add_uint256, blake2s_add_uint256_bigend, compute_blake2s, finalize_blake2s,
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::BLAKE2S_COMPUTE => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                compute_blake2s(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::BLAKE2S_FINALIZE | hint_code::BLAKE2S_FINALIZE_V2 => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                finalize_blake2s(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::BLAKE2S_FINALIZE_V3 => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                finalize_blake2s_v3(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::BLAKE2S_ADD_UINT256 => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                blake2s_add_uint256(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::BLAKE2S_ADD_UINT256_BIGEND => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                blake2s_add_uint256_bigend(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::BLAKE2S_UNPACK_FELTS => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                blake2s_unpack_felts(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:            hint_code::EXAMPLE_BLAKE2S_COMPRESS => {
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/builtin_hint_processor_definition.rs:                example_blake2s_compress(vm, &hint_data.ids_data, &hint_data.ap_tracking)
+- [ ] ./vm/src/serde/serialize_program.rs:            include_bytes!("../../../cairo_programs/blake2s_felts.json").to_vec(),
+- [ ] ./vm/src/serde/serialize_program.rs:            include_bytes!("../../../cairo_programs/example_blake2s.json").to_vec(),
+- [ ] ./vm/src/serde/serialize_program.rs:            include_bytes!("../../../cairo_programs/blake2s_felts.json").to_vec(),
+- [ ] ./vm/src/serde/serialize_program.rs:            include_bytes!("../../../cairo_programs/example_blake2s.json").to_vec(),
+- [ ] ./cairo2/corelib/src/test/hash_test.cairo:use crate::blake::{blake2s_compress, blake2s_finalize};
+- [ ] ./cairo2/corelib/src/test/hash_test.cairo:fn test_blake2s() {
+- [ ] ./cairo2/corelib/src/test/hash_test.cairo:    let res = blake2s_compress(state, byte_count, msg).unbox();
+- [ ] ./cairo2/corelib/src/test/hash_test.cairo:    let res = blake2s_finalize(state, byte_count, msg).unbox();
+- [ ] ./cairo2/corelib/src/blake.cairo:/// State for Blake2s hash.
+- [ ] ./cairo2/corelib/src/blake.cairo:type Blake2sState = Box<[u32; 8]>;
+- [ ] ./cairo2/corelib/src/blake.cairo:/// The input to the Blake2s compress function.
+- [ ] ./cairo2/corelib/src/blake.cairo:type Blake2sInput = Box<[u32; 16]>;
+- [ ] ./cairo2/corelib/src/blake.cairo:/// The blake2s compress function, which takes a state, a byte count, and a message, and returns a
+- [ ] ./cairo2/corelib/src/blake.cairo:pub extern fn blake2s_compress(
+- [ ] ./cairo2/corelib/src/blake.cairo:    state: Blake2sState, byte_count: u32, msg: Blake2sInput,
+- [ ] ./cairo2/corelib/src/blake.cairo:) -> Blake2sState nopanic;
+- [ ] ./cairo2/corelib/src/blake.cairo:/// Similar to `blake2s_compress`, but used for the final block of the message.
+- [ ] ./cairo2/corelib/src/blake.cairo:pub extern fn blake2s_finalize(
+- [ ] ./cairo2/corelib/src/blake.cairo:    state: Blake2sState, byte_count: u32, msg: Blake2sInput,
+- [ ] ./cairo2/corelib/src/blake.cairo:) -> Blake2sState nopanic;
+- [ ] ./cairo2/corelib/src/lib.cairo:pub mod blake;
+- [ ] ./cairo1-run/corelib/src/test/hash_test.cairo:use crate::blake::{blake2s_compress, blake2s_finalize};
+- [ ] ./cairo1-run/corelib/src/test/hash_test.cairo:fn test_blake2s() {
+- [ ] ./cairo1-run/corelib/src/test/hash_test.cairo:    let res = blake2s_compress(state, byte_count, msg).unbox();
+- [ ] ./cairo1-run/corelib/src/test/hash_test.cairo:    let res = blake2s_finalize(state, byte_count, msg).unbox();
+- [ ] ./cairo1-run/corelib/src/blake.cairo:/// State for Blake2s hash.
+- [ ] ./cairo1-run/corelib/src/blake.cairo:type Blake2sState = Box<[u32; 8]>;
+- [ ] ./cairo1-run/corelib/src/blake.cairo:/// The input to the Blake2s compress function.
+- [ ] ./cairo1-run/corelib/src/blake.cairo:type Blake2sInput = Box<[u32; 16]>;
+- [ ] ./cairo1-run/corelib/src/blake.cairo:/// The blake2s compress function, which takes a state, a byte count, and a message, and returns a
+- [ ] ./cairo1-run/corelib/src/blake.cairo:pub extern fn blake2s_compress(
+- [ ] ./cairo1-run/corelib/src/blake.cairo:    state: Blake2sState, byte_count: u32, msg: Blake2sInput,
+- [ ] ./cairo1-run/corelib/src/blake.cairo:) -> Blake2sState nopanic;
+- [ ] ./cairo1-run/corelib/src/blake.cairo:/// Similar to `blake2s_compress`, but used for the final block of the message.
+- [ ] ./cairo1-run/corelib/src/blake.cairo:pub extern fn blake2s_finalize(
+- [ ] ./cairo1-run/corelib/src/blake.cairo:    state: Blake2sState, byte_count: u32, msg: Blake2sInput,
+- [ ] ./cairo1-run/corelib/src/blake.cairo:) -> Blake2sState nopanic;
+- [ ] ./cairo1-run/corelib/src/lib.cairo:pub mod blake;
+- [ ] ./examples/hyper_threading/src/main.rs:        build_filename!("blake2s_integration_benchmark.json"),
+
+find . -iname "*blake*" -not -path "*/.git/*" -not -path "*/target/*" -not -path "*/compiled_casm_air/*" -not -path "*/cairo-vm-env/*"
+✅🛠️⚠️
+- [ ] ./cairo_programs/blake2s_hello_world_hash.cairo
+- [ ] ./cairo_programs/finalize_blake2s.cairo
+- [ ] ./cairo_programs/example_blake2s.json
+- [ ] ./cairo_programs/blake2s_hello_world_hash.json
+- [ ] ./cairo_programs/blake2s_felts.json
+- [ ] ./cairo_programs/blake2s_integration_tests.cairo
+- [ ] ./cairo_programs/finalize_blake2s.json
+- [ ] ./cairo_programs/finalize_blake2s_v2_hint.cairo
+- [ ] ./cairo_programs/stwo_exclusive_programs/blake2s_opcode_test.json
+- [ ] ./cairo_programs/stwo_exclusive_programs/blake2s_opcode_test.cairo
+- [ ] ./cairo_programs/finalize_blake2s_v2_hint.json
+- [ ] ./cairo_programs/blake2s_felts.cairo
+- [ ] ./cairo_programs/example_blake2s.cairo
+- [ ] ./cairo_programs/proof_programs/blake2s_hello_world_hash.cairo
+- [ ] ./cairo_programs/proof_programs/finalize_blake2s.cairo
+- [ ] ./cairo_programs/proof_programs/example_blake2s.json
+- [ ] ./cairo_programs/proof_programs/blake2s_hello_world_hash.json
+- [ ] ./cairo_programs/proof_programs/blake2s_felts.json
+- [ ] ./cairo_programs/proof_programs/blake2s_integration_tests.cairo
+- [ ] ./cairo_programs/proof_programs/finalize_blake2s.json
+- [ ] ./cairo_programs/proof_programs/finalize_blake2s_v2_hint.cairo
+- [ ] ./cairo_programs/proof_programs/finalize_blake2s_v2_hint.json
+- [ ] ./cairo_programs/proof_programs/blake2s_felts.cairo
+- [ ] ./cairo_programs/proof_programs/example_blake2s.cairo
+- [ ] ./cairo_programs/proof_programs/blake2s_integration_tests.json
+- [ ] ./cairo_programs/blake2s_integration_tests.json
+- [ ] ./cairo_programs/benchmarks/blake2s_integration_benchmark.cairo
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_utils.rs
+- [ ] ./vm/src/hint_processor/builtin_hint_processor/blake2s_hash.rs
+- [ ] ./cairo2/corelib/src/blake.cairo
+- [ ] ./cairo1-run/corelib/src/blake.cairo
