@@ -1,0 +1,100 @@
+grep -ir blake --exclude-dir={target,build,compiled_casm_air}
+✅🛠️⚠️
+- [ ] ./crates/cairo-lang-sierra/src/simulation/core.rs:        CoreConcreteLibfunc::Blake(_) => unimplemented!(),
+- [ ] ./crates/cairo-lang-sierra/src/extensions/core.rs:use super::blake::{Blake2sState, BlakeLibfunc};
+- [ ] ./crates/cairo-lang-sierra/src/extensions/core.rs:        Blake(Blake2sState),
+- [ ] ./crates/cairo-lang-sierra/src/extensions/core.rs:        Blake(BlakeLibfunc),
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/mod.rs:pub mod blake;
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:/// Type for the state of the Blake2s.
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:pub struct Blake2sState {}
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:impl NoGenericArgsGenericType for Blake2sState {
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:    const ID: GenericTypeId = GenericTypeId::new_inline("Blake2sState");
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:    pub enum BlakeLibfunc {
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:        Blake2sCompress(Blake2sCompressLibFunc),
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:        Blake2sFinalize(Blake2sFinalizeLibFunc),
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:    }, BlakeConcreteLibfunc
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:/// Libfunc for the Blake2s compress function.
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:pub struct Blake2sCompressLibFunc {}
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:impl NoGenericArgsGenericLibfunc for Blake2sCompressLibFunc {
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:    const STR_ID: &'static str = "blake2s_compress";
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:/// Libfunc for the Blake2s finalize function.
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:pub struct Blake2sFinalizeLibFunc {}
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:impl NoGenericArgsGenericLibfunc for Blake2sFinalizeLibFunc {
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs:    const STR_ID: &'static str = "blake2s_finalize";
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/mod.rs:mod blake;
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/mod.rs:        Blake(libfunc) => blake::build(libfunc, builder),
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/blake.rs:use cairo_lang_sierra::extensions::blake::BlakeConcreteLibfunc;
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/blake.rs:    libfunc: &BlakeConcreteLibfunc,
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/blake.rs:        BlakeConcreteLibfunc::Blake2sCompress(_) => false,
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/blake.rs:        BlakeConcreteLibfunc::Blake2sFinalize(_) => true,
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/blake.rs:    casm_builder.blake2s_compress(state, byte_count, message, finalize);
+- [ ] ./crates/cairo-lang-sierra-ap-change/src/core_libfunc_ap_change.rs:use cairo_lang_sierra::extensions::blake::BlakeConcreteLibfunc;
+- [ ] ./crates/cairo-lang-sierra-ap-change/src/core_libfunc_ap_change.rs:        Blake(libfunc) => match libfunc {
+- [ ] ./crates/cairo-lang-sierra-ap-change/src/core_libfunc_ap_change.rs:            BlakeConcreteLibfunc::Blake2sCompress(_) | BlakeConcreteLibfunc::Blake2sFinalize(_) => {
+- [ ] ./crates/cairo-lang-sierra-type-size/src/lib.rs:            CoreTypeConcrete::Blake(_) => 1,
+- [ ] ./crates/cairo-lang-casm/src/encoder.rs:            OpcodeExtension::Blake2s => bigint_encoding |= BigInt::from(1) << OPCODE_EXT_OFFSET,
+- [ ] ./crates/cairo-lang-casm/src/encoder.rs:            OpcodeExtension::Blake2sFinalize => {
+- [ ] ./crates/cairo-lang-casm/src/assembler.rs:    Blake2s,
+- [ ] ./crates/cairo-lang-casm/src/assembler.rs:    Blake2sFinalize,
+- [ ] ./crates/cairo-lang-casm/src/assembler.rs:            InstructionBody::Blake2sCompress(insn) => {
+- [ ] ./crates/cairo-lang-casm/src/assembler.rs:                        OpcodeExtension::Blake2sFinalize
+- [ ] ./crates/cairo-lang-casm/src/assembler.rs:                        OpcodeExtension::Blake2s
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:    Blake2sCompress(Blake2sCompressInstruction),
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:            InstructionBody::Blake2sCompress(insn) => insn.op_size(),
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:            InstructionBody::Blake2sCompress(insn) => write!(f, "{insn}",),
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:/// Represents a blake2s instruction, "blake2s".
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:pub struct Blake2sCompressInstruction {
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:impl Blake2sCompressInstruction {
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:impl Display for Blake2sCompressInstruction {
+- [ ] ./crates/cairo-lang-casm/src/instructions.rs:            "blake2s[state={}, message={}, byte_count={}, finalize={}] => [ap + 0]",
+- [ ] ./crates/cairo-lang-casm/src/builder.rs:    AddApInstruction, AssertEqInstruction, Blake2sCompressInstruction, CallInstruction,
+- [ ] ./crates/cairo-lang-casm/src/builder.rs:    /// Add a statement performing Blake2s compression.
+- [ ] ./crates/cairo-lang-casm/src/builder.rs:    pub fn blake2s_compress(&mut self, state: Var, byte_count: Var, message: Var, finalize: bool) {
+- [ ] ./crates/cairo-lang-casm/src/builder.rs:            InstructionBody::Blake2sCompress(Blake2sCompressInstruction {
+- [ ] ./crates/cairo-lang-starknet-classes/src/allowed_libfuncs_lists/all.json:        "blake2s_compress",
+- [ ] ./crates/cairo-lang-starknet-classes/src/allowed_libfuncs_lists/all.json:        "blake2s_finalize",
+- [ ] ./crates/cairo-lang-sierra-gas/src/core_libfunc_cost_base.rs:        // TODO(ilya): Add blake token to blake gas cost.
+- [ ] ./crates/cairo-lang-sierra-gas/src/core_libfunc_cost_base.rs:        Blake(_) => vec![ConstCost::steps(1).into()],
+- [ ] ./tests/e2e_test_data/libfuncs/blake://! > blake_compress libfunc
+- [ ] ./tests/e2e_test_data/libfuncs/blake:use core::blake::{Blake2sInput, Blake2sState, blake2s_compress};
+- [ ] ./tests/e2e_test_data/libfuncs/blake:fn foo(s: Blake2sState, byte_count: u32, m: Blake2sInput) -> Blake2sState {
+- [ ] ./tests/e2e_test_data/libfuncs/blake:    blake2s_compress(s, byte_count, m)
+- [ ] ./tests/e2e_test_data/libfuncs/blake:blake2s[state=[fp + -5], message=[fp + -3], byte_count=[fp + -4], finalize=false] => [ap + 0], ap++;
+- [ ] ./tests/e2e_test_data/libfuncs/blake:libfunc blake2s_compress = blake2s_compress;
+- [ ] ./tests/e2e_test_data/libfuncs/blake:blake2s_compress([0], [1], [2]) -> ([3]);
+- [ ] ./tests/e2e_test_data/libfuncs/blake://! > blake2s_finalize libfunc
+- [ ] ./tests/e2e_test_data/libfuncs/blake:use core::blake::{Blake2sInput, Blake2sState, blake2s_finalize};
+- [ ] ./tests/e2e_test_data/libfuncs/blake:fn foo(s: Blake2sState, byte_count: u32, m: Blake2sInput) -> Blake2sState {
+- [ ] ./tests/e2e_test_data/libfuncs/blake:    blake2s_finalize(s, byte_count, m)
+- [ ] ./tests/e2e_test_data/libfuncs/blake:blake2s[state=[fp + -5], message=[fp + -3], byte_count=[fp + -4], finalize=true] => [ap + 0], ap++;
+- [ ] ./tests/e2e_test_data/libfuncs/blake:libfunc blake2s_finalize = blake2s_finalize;
+- [ ] ./tests/e2e_test_data/libfuncs/blake:blake2s_finalize([0], [1], [2]) -> ([3]);
+- [ ] ./tests/e2e_test.rs:        blake: "blake",
+- [ ] ./Cargo.lock:name = "blake2"
+- [ ] ./Cargo.lock: "blake2",
+- [ ] ./corelib/src/test/hash_test.cairo:use crate::blake::{blake2s_compress, blake2s_finalize};
+- [ ] ./corelib/src/test/hash_test.cairo:fn test_blake2s() {
+- [ ] ./corelib/src/test/hash_test.cairo:        blake2s_compress(state, byte_count, msg).unbox(),
+- [ ] ./corelib/src/test/hash_test.cairo:        blake2s_finalize(state, byte_count, msg).unbox(),
+- [ ] ./corelib/src/test/hash_test.cairo:fn test_blake2s_with_abc() {
+- [ ] ./corelib/src/test/hash_test.cairo:        blake2s_finalize(state, 3, msg).unbox(),
+- [ ] ./corelib/src/blake.cairo:/// State for Blake2s hash.
+- [ ] ./corelib/src/blake.cairo:type Blake2sState = Box<[u32; 8]>;
+- [ ] ./corelib/src/blake.cairo:/// The input to the Blake2s compress function.
+- [ ] ./corelib/src/blake.cairo:type Blake2sInput = Box<[u32; 16]>;
+- [ ] ./corelib/src/blake.cairo:/// The blake2s compress function, which takes a state, a byte count, and a message, and returns a
+- [ ] ./corelib/src/blake.cairo:pub extern fn blake2s_compress(
+- [ ] ./corelib/src/blake.cairo:    state: Blake2sState, byte_count: u32, msg: Blake2sInput,
+- [ ] ./corelib/src/blake.cairo:) -> Blake2sState nopanic;
+- [ ] ./corelib/src/blake.cairo:/// A variant of `blake2s_compress` for the final block of the message.
+- [ ] ./corelib/src/blake.cairo:pub extern fn blake2s_finalize(
+- [ ] ./corelib/src/blake.cairo:    state: Blake2sState, byte_count: u32, msg: Blake2sInput,
+- [ ] ./corelib/src/blake.cairo:) -> Blake2sState nopanic;
+- [ ] ./corelib/src/lib.cairo:pub mod blake;
+
+find . -iname "*blake*" -not -path "*/.git/*" -not -path "*/target/*" -not -path "*/compiled_casm_air/*"
+✅🛠️⚠️
+- [ ] ./crates/cairo-lang-sierra/src/extensions/modules/blake.rs
+- [ ] ./crates/cairo-lang-sierra-to-casm/src/invocations/blake.rs
+- [ ] ./tests/e2e_test_data/libfuncs/blake
+- [ ] ./corelib/src/blake.cairo
