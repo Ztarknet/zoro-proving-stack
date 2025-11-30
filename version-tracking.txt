@@ -1,0 +1,67 @@
+Blake2b Init ( Blake2s carbon copy )
+
+Blake2s Relations:
+{
+  "MemoryIdToBig": 4832,
+  "RangeCheck_9_9_F": 32,
+  "VerifyInstruction": 176,
+  "TripleXor32": 128,
+  "VerifyBitwiseXor_12": 4096,
+  "RangeCheck_9_9": 160,
+  "RangeCheck_9_9_B": 160,
+  "RangeCheck_9_9_E": 32,
+  "BlakeRoundSigma": 256,
+  "Opcodes": 176,
+  "RangeCheck_9_9_H": 16,
+  "MemoryAddressToId": 4960,
+  "RangeCheck_9_9_D": 160,
+  "VerifyBitwiseXor_9": 4528,
+  "RangeCheck_11": 16,
+  "RangeCheck_9_9_C": 160,
+  "VerifyBitwiseXor_4": 4096,
+  "RangeCheck_18": 16,
+  "BlakeG": 2048,
+  "VerifyBitwiseXor_7": 4096,
+  "BlakeRound": 272,
+  "RangeCheck_7_2_5": 4496,
+  "VerifyBitwiseXor_8": 8784,
+  "RangeCheck_4_3": 128,
+  "VerifyBitwiseXor_8_B": 8704,
+  "RangeCheck_9_9_G": 16
+}
+
+Blake2b Relations:
+{
+  "MemoryAddressToId": 4960,
+  "RangeCheck_18": 16,
+  "TripleXor32": 128,
+  "VerifyBitwiseXor_9": 4528,
+  "RangeCheck_9_9": 160,
+  "RangeCheck_7_2_5": 4496,
+  "VerifyBitwiseXor_8": 8784,
+  "Blake2bRoundSigma": 256,
+  "RangeCheck_4_3": 128,
+  "VerifyBitwiseXor_12": 4096,
+  "VerifyInstruction": 176,
+  "RangeCheck_9_9_C": 160,
+  "RangeCheck_9_9_E": 32,
+  "Blake2bRound": 272,
+  "VerifyBitwiseXor_7": 4096,
+  "VerifyBitwiseXor_8_B": 8704,
+  "RangeCheck_9_9_B": 160,
+  "RangeCheck_9_9_F": 32,
+  "RangeCheck_9_9_G": 16,
+  "Opcodes": 176,
+  "RangeCheck_11": 16,
+  "Blake2bG": 2048,
+  "MemoryIdToBig": 4832,
+  "RangeCheck_9_9_D": 160,
+  "RangeCheck_9_9_H": 16,
+  "VerifyBitwiseXor_4": 4096
+}
+
+Versions:
+- Cairo: 36df2115900ce27eeba6513f83346ff952aa2bf7
+- Cairo VM: dbeaa0c04f4490fc9a764084908c3dace287ecda
+- Stwo Cairo: dbeaf97be0a43178d1f801cfb4f727f8eac6b83e
+- Stwo Air Infra: 91d09dfef6c936e063a309719093a8e72f939ff8
