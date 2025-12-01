@@ -1,163 +1,166 @@
+Good - ✅
+Needs Review - 👀
+Uncertain - ❓
+Does not exist - ❌
+
 blake-testing
 --------------
-.gitignore
-CLAUDE.md
-cairo-prove/Cargo.toml
-stwo_cairo_prover/Cargo.lock
-stwo_cairo_prover/Cargo.toml
-stwo_cairo_prover/crates/adapter/src/adapter.rs
-stwo_cairo_prover/crates/adapter/src/decode.rs
-stwo_cairo_prover/crates/adapter/src/opcodes.rs
-stwo_cairo_prover/crates/cairo-air/src/air.rs
-stwo_cairo_prover/crates/cairo-air/src/blake2b/air.rs
-stwo_cairo_prover/crates/cairo-air/src/blake2b/mod.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_compress_opcode.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_g.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_round.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_round_sigma.rs
-stwo_cairo_prover/crates/cairo-air/src/components/constraints_regression_test_values.rs
-stwo_cairo_prover/crates/cairo-air/src/components/mod.rs
-stwo_cairo_prover/crates/cairo-air/src/components/pedersen_aggregator.rs
-stwo_cairo_prover/crates/cairo-air/src/components/pedersen_builtin.rs
-stwo_cairo_prover/crates/cairo-air/src/components/poseidon_builtin.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_output.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_round_input.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/decode_blake_2_b_opcode.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/mod.rs
-stwo_cairo_prover/crates/cairo-air/src/lib.rs
-stwo_cairo_prover/crates/cairo-air/src/opcodes_air.rs
-stwo_cairo_prover/crates/cairo-air/src/relations.rs
-stwo_cairo_prover/crates/common/casm_registry.json
-stwo_cairo_prover/crates/common/src/preprocessed_columns/blake2b.rs
-stwo_cairo_prover/crates/common/src/preprocessed_columns/mod.rs
-stwo_cairo_prover/crates/common/src/preprocessed_columns/preprocessed_trace.rs
-stwo_cairo_prover/crates/prover/src/debug_tools/assert_constraints.rs
-stwo_cairo_prover/crates/prover/src/witness/blake2b_context.rs
-stwo_cairo_prover/crates/prover/src/witness/cairo.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_compress_opcode.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_g.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_round.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_round_sigma.rs
-stwo_cairo_prover/crates/prover/src/witness/components/generic_opcode.rs
-stwo_cairo_prover/crates/prover/src/witness/components/mod.rs
-stwo_cairo_prover/crates/prover/src/witness/components/pedersen_aggregator.rs
-stwo_cairo_prover/crates/prover/src/witness/components/pedersen_builtin.rs
-stwo_cairo_prover/crates/prover/src/witness/components/poseidon_builtin.rs
-stwo_cairo_prover/crates/prover/src/witness/fast_deduction/blake2b.rs
-stwo_cairo_prover/crates/prover/src/witness/fast_deduction/mod.rs
-stwo_cairo_prover/crates/prover/src/witness/mod.rs
-stwo_cairo_prover/crates/prover/src/witness/opcodes.rs
-stwo_cairo_prover/crates/prover/src/witness/prelude.rs
-stwo_cairo_verifier/crates/cairo_air/src/blake2b.cairo
-stwo_cairo_verifier/crates/cairo_air/src/cairo_air.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_compress_opcode.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_g.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_round.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_round_sigma.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_aggregator.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_builtin.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/poseidon_builtin.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/sample_evaluations.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_output.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_round_input.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/decode_blake_2_b_opcode.cairo
-stwo_cairo_verifier/crates/cairo_air/src/lib.cairo
-stwo_cairo_verifier/crates/cairo_air/src/test_utils.cairo
+git diff 369cfa89a07f80f0717b4e17b927632663bb7ce0...blake2b-testing --
+- [✅] cairo-prove/Cargo.toml
+- [✅] stwo_cairo_prover/Cargo.lock
+- [✅] stwo_cairo_prover/Cargo.toml
+- [✅] stwo_cairo_prover/crates/adapter/src/adapter.rs
+- [✅] stwo_cairo_prover/crates/adapter/src/decode.rs
+- [✅] stwo_cairo_prover/crates/adapter/src/opcodes.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/air.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/blake2b/air.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/blake2b/mod.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_compress_opcode.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_g.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_round.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_round_sigma.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/constraints_regression_test_values.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/mod.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/pedersen_aggregator.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/pedersen_builtin.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/poseidon_builtin.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_output.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_round_input.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/decode_blake_2_b_opcode.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/mod.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/lib.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/opcodes_air.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/relations.rs
+- [ ] stwo_cairo_prover/crates/common/casm_registry.json
+- [ ] stwo_cairo_prover/crates/common/src/preprocessed_columns/blake2b.rs
+- [ ] stwo_cairo_prover/crates/common/src/preprocessed_columns/mod.rs
+- [ ] stwo_cairo_prover/crates/common/src/preprocessed_columns/preprocessed_trace.rs
+- [ ] stwo_cairo_prover/crates/prover/src/debug_tools/assert_constraints.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/blake2b_context.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/cairo.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_compress_opcode.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_g.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_round.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_round_sigma.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/generic_opcode.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/mod.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/pedersen_aggregator.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/pedersen_builtin.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/poseidon_builtin.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/fast_deduction/blake2b.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/fast_deduction/mod.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/mod.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/opcodes.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/prelude.rs
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/blake2b.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/cairo_air.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_compress_opcode.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_g.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_round.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_round_sigma.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_aggregator.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_builtin.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/poseidon_builtin.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/sample_evaluations.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_output.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_round_input.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/decode_blake_2_b_opcode.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/lib.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/test_utils.cairo
 
 
 blake2b
 --------
-.gitignore
-CLAUDE.md
-cairo-prove/Cargo.toml
-stwo_cairo_prover/Cargo.lock
-stwo_cairo_prover/Cargo.toml
-stwo_cairo_prover/crates/adapter/src/adapter.rs
-stwo_cairo_prover/crates/adapter/src/decode.rs
-stwo_cairo_prover/crates/adapter/src/opcodes.rs
-stwo_cairo_prover/crates/cairo-air/src/air.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_compress_opcode_b4180.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_twob_g.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_twob_round.rs
-stwo_cairo_prover/crates/cairo-air/src/components/blake_twob_round_sigma.rs
-stwo_cairo_prover/crates/cairo-air/src/components/constraints_regression_test_values.rs
-stwo_cairo_prover/crates/cairo-air/src/components/mod.rs
-stwo_cairo_prover/crates/cairo-air/src/components/pedersen_aggregator.rs
-stwo_cairo_prover/crates/cairo-air/src/components/pedersen_builtin.rs
-stwo_cairo_prover/crates/cairo-air/src/components/poseidon_builtin.rs
-stwo_cairo_prover/crates/cairo-air/src/components/range_check_1.rs
-stwo_cairo_prover/crates/cairo-air/src/components/range_check_4_3_6.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_output_null.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_round_input_d8e0b.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/decode_blake_2_b_opcode.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/decode_instruction_64420.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/mod.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/read_blake_2_b_word.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/split_16_low_part_size_15.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/triple_sum_64.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/verify_blake_2_b_word.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_64.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_16.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_24.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_32.rs
-stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_63.rs
-stwo_cairo_prover/crates/cairo-air/src/components/triple_xor_64.rs
-stwo_cairo_prover/crates/cairo-air/src/opcodes_air.rs
-stwo_cairo_prover/crates/cairo-air/src/range_checks_air.rs
-stwo_cairo_prover/crates/cairo-air/src/relations.rs
-stwo_cairo_prover/crates/common/casm_registry.json
-stwo_cairo_prover/crates/common/src/preprocessed_columns/blake2b.rs
-stwo_cairo_prover/crates/common/src/preprocessed_columns/mod.rs
-stwo_cairo_prover/crates/common/src/preprocessed_columns/preprocessed_trace.rs
-stwo_cairo_prover/crates/common/src/prover_types/simd.rs
-stwo_cairo_prover/crates/prover/src/witness/blake_context.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_compress_opcode_b4180.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_twob_g.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_twob_round.rs
-stwo_cairo_prover/crates/prover/src/witness/components/blake_twob_round_sigma.rs
-stwo_cairo_prover/crates/prover/src/witness/components/generic_opcode.rs
-stwo_cairo_prover/crates/prover/src/witness/components/mod.rs
-stwo_cairo_prover/crates/prover/src/witness/components/pedersen_aggregator.rs
-stwo_cairo_prover/crates/prover/src/witness/components/pedersen_builtin.rs
-stwo_cairo_prover/crates/prover/src/witness/components/poseidon_builtin.rs
-stwo_cairo_prover/crates/prover/src/witness/components/range_check_1.rs
-stwo_cairo_prover/crates/prover/src/witness/components/range_check_4_3_6.rs
-stwo_cairo_prover/crates/prover/src/witness/components/range_check_vector.rs
-stwo_cairo_prover/crates/prover/src/witness/components/triple_xor_64.rs
-stwo_cairo_prover/crates/prover/src/witness/fast_deduction/blake2b.rs
-stwo_cairo_prover/crates/prover/src/witness/fast_deduction/mod.rs
-stwo_cairo_prover/crates/prover/src/witness/opcodes.rs
-stwo_cairo_prover/crates/prover/src/witness/prelude.rs
-stwo_cairo_prover/crates/prover/src/witness/range_checks.rs
-stwo_cairo_verifier/crates/cairo_air/src/cairo_air.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_compress_opcode_b4180.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_twob_g.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_twob_round.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/blake_twob_round_sigma.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_aggregator.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_builtin.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/poseidon_builtin.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/range_check_1.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/range_check_4_3_6.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/sample_evaluations.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_output_null.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_round_input_d8e0b.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/decode_blake_2_b_opcode.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/decode_instruction_64420.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/read_blake_2_b_word.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/split_16_low_part_size_15.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/triple_sum_64.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/verify_blake_2_b_word.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_64.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_16.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_24.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_32.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_63.cairo
-stwo_cairo_verifier/crates/cairo_air/src/components/triple_xor_64.cairo
-stwo_cairo_verifier/crates/cairo_air/src/preprocessed_columns_canonical.cairo
-stwo_cairo_verifier/crates/cairo_air/src/preprocessed_columns_without_pedersen.cairo
-stwo_cairo_verifier/crates/cairo_air/src/test_utils.cairo
+git diff 369cfa89a07f80f0717b4e17b927632663bb7ce0...blake2b --
+- [✅] cairo-prove/Cargo.toml
+- [✅] stwo_cairo_prover/Cargo.lock
+- [✅] stwo_cairo_prover/Cargo.toml
+- [✅] stwo_cairo_prover/crates/adapter/src/adapter.rs
+- [✅] stwo_cairo_prover/crates/adapter/src/decode.rs
+- [✅] stwo_cairo_prover/crates/adapter/src/opcodes.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/air.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_2_b_compress_opcode_b4180.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_twob_g.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_twob_round.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/blake_twob_round_sigma.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/constraints_regression_test_values.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/mod.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/pedersen_aggregator.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/pedersen_builtin.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/poseidon_builtin.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/range_check_1.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/range_check_4_3_6.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_output_null.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/create_blake_2_b_round_input_d8e0b.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/decode_blake_2_b_opcode.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/decode_instruction_64420.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/mod.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/read_blake_2_b_word.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/split_16_low_part_size_15.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/triple_sum_64.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/verify_blake_2_b_word.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_64.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_16.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_24.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_32.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/subroutines/xor_rot_64_r_63.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/components/triple_xor_64.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/opcodes_air.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/range_checks_air.rs
+- [ ] stwo_cairo_prover/crates/cairo-air/src/relations.rs
+- [ ] stwo_cairo_prover/crates/common/casm_registry.json
+- [ ] stwo_cairo_prover/crates/common/src/preprocessed_columns/blake2b.rs
+- [ ] stwo_cairo_prover/crates/common/src/preprocessed_columns/mod.rs
+- [ ] stwo_cairo_prover/crates/common/src/preprocessed_columns/preprocessed_trace.rs
+- [ ] stwo_cairo_prover/crates/common/src/prover_types/simd.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/blake_context.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_2_b_compress_opcode_b4180.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_twob_g.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_twob_round.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/blake_twob_round_sigma.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/generic_opcode.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/mod.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/pedersen_aggregator.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/pedersen_builtin.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/poseidon_builtin.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/range_check_1.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/range_check_4_3_6.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/range_check_vector.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/components/triple_xor_64.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/fast_deduction/blake2b.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/fast_deduction/mod.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/opcodes.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/prelude.rs
+- [ ] stwo_cairo_prover/crates/prover/src/witness/range_checks.rs
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/cairo_air.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_2_b_compress_opcode_b4180.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_twob_g.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_twob_round.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/blake_twob_round_sigma.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_aggregator.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/pedersen_builtin.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/poseidon_builtin.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/range_check_1.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/range_check_4_3_6.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/sample_evaluations.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_output_null.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/create_blake_2_b_round_input_d8e0b.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/decode_blake_2_b_opcode.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/decode_instruction_64420.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/read_blake_2_b_word.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/split_16_low_part_size_15.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/triple_sum_64.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/verify_blake_2_b_word.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_64.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_16.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_24.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_32.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/subroutines/xor_rot_64_r_63.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/components/triple_xor_64.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/preprocessed_columns_canonical.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/preprocessed_columns_without_pedersen.cairo
+- [ ] stwo_cairo_verifier/crates/cairo_air/src/test_utils.cairo
