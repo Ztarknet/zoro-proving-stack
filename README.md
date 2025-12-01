@@ -54,12 +54,15 @@ make stwo-air-infra-build # AIR infrastructure (if available)
 ### Run Tests
 
 ```bash
-# Build and run test programs
-make test-build           # Compile tests with scarb
-make test-execute         # Run tests
+# Component specific tests
+make cairo-test          # Cairo compiler
+make cairo-vm-test       # Cairo VM
+make stwo-cairo-test     # Stwo prover
+make stwo-air-infra-test # AIR infrastructure (if available)
 
 # Full proving pipeline
 make test-full-fib        # Fibonacci: compile -> prove -> verify
+make test-full-blake2s    # Blake2s: compile -> prove -> verify
 make test-full-blake2b    # Blake2b: compile -> prove -> verify
 ```
 
