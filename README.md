@@ -68,10 +68,10 @@ make test-full-blake2b    # Blake2b: compile -> prove -> verify
 The proving pipeline:
 
 ```
-Cairo Source -> Scarb Build -> Cairo VM -> Stwo Prover -> STARK Proof
-     |              |            |           |             |
- Validation    Executable    Execution   Generate      Verify
-   Logic         JSON         Trace       Proof       (Rust/Cairo)
+Cairo Source -> Cairo Build -> Cairo VM -> Stwo Prover -> Stwo Verifier
+     |              |            |            |                |
+  Program     Executable     Execution     Generate          Verify
+   Logic         JSON          Trace        Proof            Proof
 ```
 
 ## Submodules
@@ -93,7 +93,7 @@ Cairo Source -> Scarb Build -> Cairo VM -> Stwo Prover -> STARK Proof
 
 1. **If you have access:** The setup script will prompt to clone it
 2. **Use existing clone:** Set `STWO_AIR_INFRA_PATH` environment variable
-3. **Skip:** Some proving features will be unavailable
+3. **Skip:** Custom airs will not be generatable
 
 ## Development
 
