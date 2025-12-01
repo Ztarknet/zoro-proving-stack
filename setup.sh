@@ -61,7 +61,7 @@ else
     echo "Options to set up stwo-air-infra:"
     echo ""
     echo "  1. If you have access to starkware-industries/stwo-air-infra:"
-    echo "     git clone git@github.com:starkware-industries/stwo-air-infra.git"
+    echo "     git clone -b brandon/blake2b git@github.com:starkware-industries/stwo-air-infra.git"
     echo ""
     echo "  2. If you have a local clone elsewhere, set STWO_AIR_INFRA_PATH:"
     echo "     export STWO_AIR_INFRA_PATH=/path/to/your/stwo-air-infra"
@@ -74,8 +74,8 @@ else
     echo ""
 
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo -e "${YELLOW}Cloning stwo-air-infra...${NC}"
-        if git clone git@github.com:starkware-industries/stwo-air-infra.git; then
+        echo -e "${YELLOW}Cloning stwo-air-infra (branch: brandon/blake2b)...${NC}"
+        if git clone -b brandon/blake2b git@github.com:starkware-industries/stwo-air-infra.git; then
             echo -e "${GREEN}Successfully cloned stwo-air-infra${NC}"
         else
             echo -e "${RED}Failed to clone. You may not have access to this private repository.${NC}"

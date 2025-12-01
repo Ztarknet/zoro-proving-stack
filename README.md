@@ -87,6 +87,8 @@ Cairo Source -> Scarb Build -> Cairo VM -> Stwo Prover -> STARK Proof
 
 `stwo-air-infra` contains AIR (Algebraic Intermediate Representation) infrastructure and is hosted in a separate private repository. It's required for the stwo-cairo air generation, but is optional for basic development.
 
+**Branch:** `brandon/blake2b`
+
 **Setup options:**
 
 1. **If you have access:** The setup script will prompt to clone it
