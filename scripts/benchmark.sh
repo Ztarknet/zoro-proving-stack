@@ -1,5 +1,5 @@
 #!/bin/bash
-# Zoro Proving Pipeline Benchmark Script
+# Zoro Proving Stack Benchmark Script
 # Collects metrics for fib, blake2s, and blake2b tests
 
 set -e
@@ -30,7 +30,7 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 RESULTS_FILE="$RESULTS_DIR/benchmark_$TIMESTAMP.json"
 SUMMARY_FILE="$RESULTS_DIR/benchmark_$TIMESTAMP.txt"
 
-echo -e "${BLUE}=== Zoro Proving Pipeline Benchmark ===${NC}"
+echo -e "${BLUE}=== Zoro Proving Stack Benchmark ===${NC}"
 echo "Timestamp: $TIMESTAMP"
 echo "Results will be saved to: $RESULTS_FILE"
 echo ""
@@ -217,7 +217,7 @@ echo ""
 # Create summary file
 cat > "$SUMMARY_FILE" << 'EOF'
 ================================================================================
-                      ZORO PROVING PIPELINE BENCHMARK RESULTS
+                      ZORO PROVING STACK BENCHMARK RESULTS
 ================================================================================
 
 EOF

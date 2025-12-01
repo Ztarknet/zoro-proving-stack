@@ -1,0 +1,16 @@
+[submodule "cairo"]
+	path = cairo
+	url = git@github.com:Ztarknet/cairo.git
+	branch = blake2b
+[submodule "cairo-vm"]
+	path = cairo-vm
+	url = https://github.com/Ztarknet/cairo-vm
+	branch = blake2b
+[submodule "stwo-cairo"]
+	path = stwo-cairo
+	url = git@github.com:Ztarknet/stwo-cairo.git
+	branch = blake2b
+[submodule "zoro"]
+	path = zoro
+	url = https://github.com/starkware-bitcoin/zoro
+	branch = main

@@ -4,19 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Zoro** is a ZK client for Zcash implemented in Cairo (inspired by Raito for Bitcoin). It produces STARK proofs for Zcash consensus validity using the Stwo prover with Circle STARKs.
+**Zoro Proving Stack** is a development environment for building and proving Cairo programs with the Stwo prover. It bundles modified forks of the Cairo compiler, Cairo VM, and Stwo prover with coordinated changes for custom opcodes (like Blake2b).
 
-The repository is a monorepo containing multiple interconnected projects, all used together to build and prove Zcash validation logic.
+Primary use case: Development of [Zoro](https://github.com/starkware-bitcoin/zoro), a ZK client for Zcash that produces STARK proofs for consensus validity using Circle STARKs.
 
 ## Repository Structure
 
 ```
-zoro/
-├── zoro/           # Main Zoro project (Cairo packages for Zcash validation)
-├── cairo/          # Cairo compiler (Rust)
-├── cairo-vm/       # Cairo VM implementation (Rust)
-├── stwo-cairo/     # Stwo prover for Cairo programs
-├── stwo-air-infra/ # AIR infrastructure for Stwo
+zoro-proving-stack/
+├── cairo/          # Cairo compiler (Rust) - Ztarknet fork
+├── cairo-vm/       # Cairo VM implementation (Rust) - Ztarknet fork
+├── stwo-cairo/     # Stwo prover for Cairo programs - Ztarknet fork
+├── stwo-air-infra/ # AIR infrastructure for Stwo (private, optional)
+├── zoro/           # Zoro - Zcash ZK client in Cairo
 └── tests/          # Integration tests (Cairo executable)
 ```
 
@@ -59,7 +59,7 @@ make stwo-air-infra-test  # Test AIR infrastructure
 make zoro-test            # Test Zoro packages
 ```
 
-### Main Zoro Project (Cairo)
+### Zoro Submodule (Cairo)
 ```bash
 cd zoro
 scarb build               # Build all packages
@@ -67,7 +67,7 @@ scarb test                # Run tests
 scarb fmt                 # Format Cairo code
 ```
 
-## Cairo Packages (zoro/zoro/packages/)
+## Zoro Cairo Packages (zoro/packages/)
 
 - **client** - Standalone Cairo program implementing a Bitcoin client (light/full/utreexo modes)
 - **consensus** - Bitcoin consensus validation primitives (types, validation, codec)
@@ -77,7 +77,7 @@ scarb fmt                 # Format Cairo code
 
 ## Running the Client
 ```bash
-cd zoro/zoro/packages/client
+cd zoro/packages/client
 scarb run client START_HEIGHT END_HEIGHT BATCH_SIZE MODE STRATEGY
 # MODE: light | full | utreexo
 # STRATEGY: sequential | random
