@@ -134,3 +134,70 @@ Versions:
 - Cairo VM: fd030c091440da8d75dd2c11ecd9bb1ab727cbc7
 - Stwo Cairo: 212cb01a9c83386d392fa83fa134a516ed54914b
 - Stwo Air Infra: 221324b36ec4f5cbbeff41443eb5a0971567e84a
+
+
+-----
+Blake2b Finalize
+
+Blake2s Relations:
+{
+  "RangeCheck_9_9_H": 16,
+  "VerifyBitwiseXor_8": 8784,
+  "VerifyBitwiseXor_7": 4096,
+  "RangeCheck_9_9_D": 160,
+  "RangeCheck_9_9_G": 16,
+  "RangeCheck_9_9_F": 32,
+  "RangeCheck_9_9_E": 32,
+  "VerifyBitwiseXor_9": 4528,
+  "VerifyBitwiseXor_4": 4096,
+  "RangeCheck_9_9": 160,
+  "RangeCheck_9_9_C": 160,
+  "BlakeRoundSigma": 256,
+  "RangeCheck_7_2_5": 4496,
+  "RangeCheck_18": 16,
+  "VerifyBitwiseXor_12": 4096,
+  "VerifyBitwiseXor_8_B": 8704,
+  "VerifyInstruction": 176,
+  "BlakeG": 2048,
+  "MemoryAddressToId": 4960,
+  "MemoryIdToBig": 4832,
+  "RangeCheck_4_3": 128,
+  "RangeCheck_9_9_B": 160,
+  "BlakeRound": 272,
+  "TripleXor32": 128,
+  "RangeCheck_11": 16,
+  "Opcodes": 176
+}
+
+Blake2b Relations:
+{
+  "MemoryAddressToId": 4768,
+  "Blake2bG": 2048,
+  "Blake2bRoundSigma": 256,
+  "Opcodes": 160,
+  "RangeCheck_9_9_H": 16,
+  "RangeCheck_18": 16,
+  "RangeCheck_9_9": 160,
+  "VerifyInstruction": 160,
+  "RangeCheck_9_9_C": 160,
+  "Blake2bRound": 272,
+  "RangeCheck_9_9_F": 32,
+  "RangeCheck_11": 16,
+  "RangeCheck_4_3": 4432,
+  "RangeCheck_9_9_D": 160,
+  "RangeCheck_9_9_E": 32,
+  "RangeCheck_7_2_5": 4432,
+  "TripleXor64": 128,
+  "RangeCheck_9_9_G": 16,
+  "MemoryIdToBig": 4672,
+  "VerifyBitwiseXor_8": 33856,
+  "RangeCheck_6": 4368,
+  "VerifyBitwiseXor_8_B": 33856,
+  "RangeCheck_9_9_B": 160
+}
+
+Versions:
+- Cairo: ef84307cfe4e40f45a5b2588dab85a19d3e459c3
+- Cairo VM: 60018c948c349b3cdee5300c9954cb28d59c5728
+- Stwo Cairo: bd4ef6515af31339c0f775b5b8b2f9462d1265cf
+- Stwo Air Infra: f34f8eb7ccf5c5b7e6cd3d3e4bcdcd437c437440
