@@ -4,9 +4,11 @@ use core::box::BoxTrait;
 #[executable]
 fn main() -> [u32; 8] {
     // RFC 7693 test vector: hash "abc"
-    // Initial state is the IV, with keylen 0 and output length 32.
+    // Initial state is the IV, with parameter block XORed into h[0].
+    // Parameter block (first 4 bytes): digest_length=32 (0x20), key_length=0, fanout=1, depth=1
+    // h[0] = IV[0] ^ param_block = 0x6A09E667 ^ 0x01010020 = 0x6B08E647
     let state = BoxTrait::new([
-        0x6A09E667 ^ (0x01010000 ^ 0x20),
+        0x6B08E647,
         0xBB67AE85,
         0x3C6EF372,
         0xA54FF53A,

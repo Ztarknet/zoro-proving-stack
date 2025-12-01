@@ -4,7 +4,8 @@
         test-prove-all test-verify-all test-full-fib test-full-blake2b test-full-blake2s \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
-        air-codegen air-codegen-all air-write-json
+        air-codegen air-codegen-all air-write-json \
+        benchmark benchmark-quick test-resources-fib test-resources-blake2s test-resources-blake2b
 
 # Directories
 BUILD_DIR := target/tests
@@ -229,3 +230,57 @@ air-write-json:
 	@echo "Writing AIR JSONs..."
 	@echo "Available opcodes: fib, bit-unpack, ret, assert-eq, call, jump"
 	cd $(AIR_INFRA_DIR) && FIX=1 cargo test -p air_infra test_casm_registry --release
+
+# =============================================================================
+# Benchmarking targets
+# =============================================================================
+# Collect metrics for fib, blake2s, and blake2b tests
+#
+# Usage:
+#   make benchmark           # Full benchmark with prove/verify timing
+#   make benchmark-quick     # Quick metrics without proving (just resources)
+#   make test-resources-fib  # Get execution resources for fibonacci only
+# =============================================================================
+
+# Full benchmark: compile, prove, verify all tests with timing
+benchmark:
+	./scripts/benchmark.sh
+
+# Quick execution resources for individual tests (no proving)
+test-resources-fib: test-compile-fib
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin get_execution_resources -- \
+		--program ../../$(BUILD_DIR)/fibonacci_exec.json \
+		--program_type executable \
+		--output ../../$(BUILD_DIR)/fibonacci_resources.json
+	@echo "Resources saved to $(BUILD_DIR)/fibonacci_resources.json"
+	@cat $(BUILD_DIR)/fibonacci_resources.json | python3 -m json.tool
+
+test-resources-blake2s: test-compile-blake2s
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin get_execution_resources -- \
+		--program ../../$(BUILD_DIR)/blake2s_exec.json \
+		--program_type executable \
+		--output ../../$(BUILD_DIR)/blake2s_resources.json
+	@echo "Resources saved to $(BUILD_DIR)/blake2s_resources.json"
+	@cat $(BUILD_DIR)/blake2s_resources.json | python3 -m json.tool
+
+test-resources-blake2b: test-compile-blake2b
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin get_execution_resources -- \
+		--program ../../$(BUILD_DIR)/blake2b_exec.json \
+		--program_type executable \
+		--output ../../$(BUILD_DIR)/blake2b_resources.json
+	@echo "Resources saved to $(BUILD_DIR)/blake2b_resources.json"
+	@cat $(BUILD_DIR)/blake2b_resources.json | python3 -m json.tool
+
+# Quick benchmark: just execution resources without proving
+benchmark-quick: test-resources-fib test-resources-blake2s test-resources-blake2b
+	@echo ""
+	@echo "=== Quick Benchmark Summary ==="
+	@echo "Fibonacci resources:"
+	@cat $(BUILD_DIR)/fibonacci_resources.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Cairo steps: {d[\"verify_instructions_count\"]}')"
+	@echo "Blake2s resources:"
+	@cat $(BUILD_DIR)/blake2s_resources.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Cairo steps: {d[\"verify_instructions_count\"]}')"
+	@echo "Blake2b resources:"
+	@cat $(BUILD_DIR)/blake2b_resources.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Cairo steps: {d[\"verify_instructions_count\"]}')"
+	@echo ""
+	@echo "File sizes:"
+	@ls -lh $(BUILD_DIR)/*_exec.json $(BUILD_DIR)/*_proof.json 2>/dev/null || echo "  (run 'make benchmark' first for proof sizes)"
