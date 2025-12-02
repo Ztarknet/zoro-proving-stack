@@ -1,6 +1,6 @@
 #!/bin/bash
 # Zoro Proving Stack Benchmark Script
-# Collects metrics for fib, blake2s, and blake2b tests
+# Collects metrics for all test programs
 
 set -e
 
@@ -19,7 +19,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Test programs to benchmark
-TESTS=("fibonacci" "blake2s" "blake2b")
+TESTS=("fibonacci" "blake2s" "blake2b" "blake2s_params" "blake2b_params" "zcash_blake")
 
 # Create results directory
 mkdir -p "$RESULTS_DIR"
@@ -232,6 +232,7 @@ with open("$RESULTS_FILE") as f:
     data = json.load(f)
 
 tests = data["tests"]
+test_names = list(tests.keys())
 
 def format_size(bytes):
     if bytes >= 1048576:
@@ -243,33 +244,51 @@ def format_size(bytes):
 def format_time(seconds):
     return f"{float(seconds):.2f}s"
 
+def short_name(name):
+    """Shorten test names for display"""
+    return name.replace('_params', '-p').replace('fibonacci', 'fib').replace('zcash_blake', 'zcash')
+
+# Calculate column width based on number of tests
+col_width = 14
+total_width = 30 + len(test_names) * (col_width + 1)
+
 # Header
-print("=" * 80)
-print(f"{'Metric':<30} {'Fibonacci':>15} {'Blake2s':>15} {'Blake2b':>15}")
-print("=" * 80)
+print("=" * total_width)
+header = f"{'Metric':<30}"
+for name in test_names:
+    header += f" {short_name(name):>{col_width}}"
+print(header)
+print("=" * total_width)
 
 # Basic metrics
-print(f"{'Source Lines':<30} {tests['fibonacci']['source_lines']:>15} {tests['blake2s']['source_lines']:>15} {tests['blake2b']['source_lines']:>15}")
-print(f"{'Bytecode Instructions':<30} {tests['fibonacci']['bytecode_instructions']:>15} {tests['blake2s']['bytecode_instructions']:>15} {tests['blake2b']['bytecode_instructions']:>15}")
-print(f"{'Hints':<30} {tests['fibonacci']['hints']:>15} {tests['blake2s']['hints']:>15} {tests['blake2b']['hints']:>15}")
-print(f"{'Cairo Steps (unique PCs)':<30} {tests['fibonacci']['cairo_steps']:>15} {tests['blake2s']['cairo_steps']:>15} {tests['blake2b']['cairo_steps']:>15}")
-print("-" * 80)
+def print_metric(label, key, formatter=str):
+    row = f"{label:<30}"
+    for name in test_names:
+        val = tests[name].get(key, 0)
+        row += f" {formatter(val):>{col_width}}"
+    print(row)
+
+print_metric("Source Lines", "source_lines")
+print_metric("Bytecode Instructions", "bytecode_instructions")
+print_metric("Hints", "hints")
+print_metric("Cairo Steps", "cairo_steps")
+print("-" * total_width)
 
 # Size metrics
-print(f"{'Executable Size':<30} {format_size(tests['fibonacci']['executable_size_bytes']):>15} {format_size(tests['blake2s']['executable_size_bytes']):>15} {format_size(tests['blake2b']['executable_size_bytes']):>15}")
-print(f"{'Proof Size':<30} {format_size(tests['fibonacci']['proof_size_bytes']):>15} {format_size(tests['blake2s']['proof_size_bytes']):>15} {format_size(tests['blake2b']['proof_size_bytes']):>15}")
-print("-" * 80)
+print_metric("Executable Size", "executable_size_bytes", format_size)
+print_metric("Proof Size", "proof_size_bytes", format_size)
+print("-" * total_width)
 
 # Timing metrics
-print(f"{'Compile Time':<30} {format_time(tests['fibonacci']['compile_time_s']):>15} {format_time(tests['blake2s']['compile_time_s']):>15} {format_time(tests['blake2b']['compile_time_s']):>15}")
-print(f"{'Prove Time':<30} {format_time(tests['fibonacci']['prove_time_s']):>15} {format_time(tests['blake2s']['prove_time_s']):>15} {format_time(tests['blake2b']['prove_time_s']):>15}")
-print(f"{'Verify Time':<30} {format_time(tests['fibonacci']['verify_time_s']):>15} {format_time(tests['blake2s']['verify_time_s']):>15} {format_time(tests['blake2b']['verify_time_s']):>15}")
-print("=" * 80)
+print_metric("Compile Time", "compile_time_s", format_time)
+print_metric("Prove Time", "prove_time_s", format_time)
+print_metric("Verify Time", "verify_time_s", format_time)
+print("=" * total_width)
 
 # Memory tables
 print("\nMemory Table Sizes:")
-print("-" * 80)
-for test_name in ['fibonacci', 'blake2s', 'blake2b']:
+print("-" * total_width)
+for test_name in test_names:
     mt = tests[test_name].get('memory_tables', {})
     addr = mt.get('address_to_id', 0)
     big = mt.get('id_to_big', 0)
@@ -278,33 +297,35 @@ for test_name in ['fibonacci', 'blake2s', 'blake2b']:
 
 # Opcode counts
 print("\nOpcode Instance Counts:")
-print("-" * 80)
+print("-" * total_width)
 all_opcodes = set()
-for test_name in ['fibonacci', 'blake2s', 'blake2b']:
+for test_name in test_names:
     all_opcodes.update(tests[test_name].get('opcode_counts', {}).keys())
 
 for opcode in sorted(all_opcodes):
-    fib = tests['fibonacci'].get('opcode_counts', {}).get(opcode, 0)
-    b2s = tests['blake2s'].get('opcode_counts', {}).get(opcode, 0)
-    b2b = tests['blake2b'].get('opcode_counts', {}).get(opcode, 0)
-    if fib > 0 or b2s > 0 or b2b > 0:
-        print(f"  {opcode:<26} {fib:>15} {b2s:>15} {b2b:>15}")
+    counts = [tests[name].get('opcode_counts', {}).get(opcode, 0) for name in test_names]
+    if any(c > 0 for c in counts):
+        row = f"  {opcode:<28}"
+        for c in counts:
+            row += f" {c:>{col_width}}"
+        print(row)
 
 # Builtin counts
 print("\nBuiltin Instance Counts:")
-print("-" * 80)
+print("-" * total_width)
 all_builtins = set()
-for test_name in ['fibonacci', 'blake2s', 'blake2b']:
+for test_name in test_names:
     all_builtins.update(tests[test_name].get('builtin_counts', {}).keys())
 
 for builtin in sorted(all_builtins):
-    fib = tests['fibonacci'].get('builtin_counts', {}).get(builtin, 0)
-    b2s = tests['blake2s'].get('builtin_counts', {}).get(builtin, 0)
-    b2b = tests['blake2b'].get('builtin_counts', {}).get(builtin, 0)
-    if fib > 0 or b2s > 0 or b2b > 0:
-        print(f"  {builtin:<26} {fib:>15} {b2s:>15} {b2b:>15}")
+    counts = [tests[name].get('builtin_counts', {}).get(builtin, 0) for name in test_names]
+    if any(c > 0 for c in counts):
+        row = f"  {builtin:<28}"
+        for c in counts:
+            row += f" {c:>{col_width}}"
+        print(row)
 
-print("=" * 80)
+print("=" * total_width)
 PYTHON_SCRIPT
 
 # Also save to summary file
@@ -315,6 +336,7 @@ with open("$RESULTS_FILE") as f:
     data = json.load(f)
 
 tests = data["tests"]
+test_names = list(tests.keys())
 
 def format_size(bytes):
     if bytes >= 1048576:
@@ -326,33 +348,51 @@ def format_size(bytes):
 def format_time(seconds):
     return f"{float(seconds):.2f}s"
 
+def short_name(name):
+    """Shorten test names for display"""
+    return name.replace('_params', '-p').replace('fibonacci', 'fib').replace('zcash_blake', 'zcash')
+
+# Calculate column width based on number of tests
+col_width = 14
+total_width = 30 + len(test_names) * (col_width + 1)
+
 # Header
-print("=" * 80)
-print(f"{'Metric':<30} {'Fibonacci':>15} {'Blake2s':>15} {'Blake2b':>15}")
-print("=" * 80)
+print("=" * total_width)
+header = f"{'Metric':<30}"
+for name in test_names:
+    header += f" {short_name(name):>{col_width}}"
+print(header)
+print("=" * total_width)
 
 # Basic metrics
-print(f"{'Source Lines':<30} {tests['fibonacci']['source_lines']:>15} {tests['blake2s']['source_lines']:>15} {tests['blake2b']['source_lines']:>15}")
-print(f"{'Bytecode Instructions':<30} {tests['fibonacci']['bytecode_instructions']:>15} {tests['blake2s']['bytecode_instructions']:>15} {tests['blake2b']['bytecode_instructions']:>15}")
-print(f"{'Hints':<30} {tests['fibonacci']['hints']:>15} {tests['blake2s']['hints']:>15} {tests['blake2b']['hints']:>15}")
-print(f"{'Cairo Steps (unique PCs)':<30} {tests['fibonacci']['cairo_steps']:>15} {tests['blake2s']['cairo_steps']:>15} {tests['blake2b']['cairo_steps']:>15}")
-print("-" * 80)
+def print_metric(label, key, formatter=str):
+    row = f"{label:<30}"
+    for name in test_names:
+        val = tests[name].get(key, 0)
+        row += f" {formatter(val):>{col_width}}"
+    print(row)
+
+print_metric("Source Lines", "source_lines")
+print_metric("Bytecode Instructions", "bytecode_instructions")
+print_metric("Hints", "hints")
+print_metric("Cairo Steps", "cairo_steps")
+print("-" * total_width)
 
 # Size metrics
-print(f"{'Executable Size':<30} {format_size(tests['fibonacci']['executable_size_bytes']):>15} {format_size(tests['blake2s']['executable_size_bytes']):>15} {format_size(tests['blake2b']['executable_size_bytes']):>15}")
-print(f"{'Proof Size':<30} {format_size(tests['fibonacci']['proof_size_bytes']):>15} {format_size(tests['blake2s']['proof_size_bytes']):>15} {format_size(tests['blake2b']['proof_size_bytes']):>15}")
-print("-" * 80)
+print_metric("Executable Size", "executable_size_bytes", format_size)
+print_metric("Proof Size", "proof_size_bytes", format_size)
+print("-" * total_width)
 
 # Timing metrics
-print(f"{'Compile Time':<30} {format_time(tests['fibonacci']['compile_time_s']):>15} {format_time(tests['blake2s']['compile_time_s']):>15} {format_time(tests['blake2b']['compile_time_s']):>15}")
-print(f"{'Prove Time':<30} {format_time(tests['fibonacci']['prove_time_s']):>15} {format_time(tests['blake2s']['prove_time_s']):>15} {format_time(tests['blake2b']['prove_time_s']):>15}")
-print(f"{'Verify Time':<30} {format_time(tests['fibonacci']['verify_time_s']):>15} {format_time(tests['blake2s']['verify_time_s']):>15} {format_time(tests['blake2b']['verify_time_s']):>15}")
-print("=" * 80)
+print_metric("Compile Time", "compile_time_s", format_time)
+print_metric("Prove Time", "prove_time_s", format_time)
+print_metric("Verify Time", "verify_time_s", format_time)
+print("=" * total_width)
 
 # Memory tables
 print("\nMemory Table Sizes:")
-print("-" * 80)
-for test_name in ['fibonacci', 'blake2s', 'blake2b']:
+print("-" * total_width)
+for test_name in test_names:
     mt = tests[test_name].get('memory_tables', {})
     addr = mt.get('address_to_id', 0)
     big = mt.get('id_to_big', 0)
@@ -361,33 +401,35 @@ for test_name in ['fibonacci', 'blake2s', 'blake2b']:
 
 # Opcode counts
 print("\nOpcode Instance Counts:")
-print("-" * 80)
+print("-" * total_width)
 all_opcodes = set()
-for test_name in ['fibonacci', 'blake2s', 'blake2b']:
+for test_name in test_names:
     all_opcodes.update(tests[test_name].get('opcode_counts', {}).keys())
 
 for opcode in sorted(all_opcodes):
-    fib = tests['fibonacci'].get('opcode_counts', {}).get(opcode, 0)
-    b2s = tests['blake2s'].get('opcode_counts', {}).get(opcode, 0)
-    b2b = tests['blake2b'].get('opcode_counts', {}).get(opcode, 0)
-    if fib > 0 or b2s > 0 or b2b > 0:
-        print(f"  {opcode:<26} {fib:>15} {b2s:>15} {b2b:>15}")
+    counts = [tests[name].get('opcode_counts', {}).get(opcode, 0) for name in test_names]
+    if any(c > 0 for c in counts):
+        row = f"  {opcode:<28}"
+        for c in counts:
+            row += f" {c:>{col_width}}"
+        print(row)
 
 # Builtin counts
 print("\nBuiltin Instance Counts:")
-print("-" * 80)
+print("-" * total_width)
 all_builtins = set()
-for test_name in ['fibonacci', 'blake2s', 'blake2b']:
+for test_name in test_names:
     all_builtins.update(tests[test_name].get('builtin_counts', {}).keys())
 
 for builtin in sorted(all_builtins):
-    fib = tests['fibonacci'].get('builtin_counts', {}).get(builtin, 0)
-    b2s = tests['blake2s'].get('builtin_counts', {}).get(builtin, 0)
-    b2b = tests['blake2b'].get('builtin_counts', {}).get(builtin, 0)
-    if fib > 0 or b2s > 0 or b2b > 0:
-        print(f"  {builtin:<26} {fib:>15} {b2s:>15} {b2b:>15}")
+    counts = [tests[name].get('builtin_counts', {}).get(builtin, 0) for name in test_names]
+    if any(c > 0 for c in counts):
+        row = f"  {builtin:<28}"
+        for c in counts:
+            row += f" {c:>{col_width}}"
+        print(row)
 
-print("=" * 80)
+print("=" * total_width)
 PYTHON_SCRIPT
 
 echo ""

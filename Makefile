@@ -1,11 +1,18 @@
 .PHONY: test-build test-execute test-run-fib test-run-blake2b test-run-blake2s test-run-all \
         test-compile-fib test-compile-blake2b test-compile-blake2s test-exec-fib test-exec-blake2b test-exec-blake2s \
+        test-compile-blake2s-params test-compile-blake2b-params test-exec-blake2s-params test-exec-blake2b-params \
+        test-run-blake2s-params test-run-blake2b-params \
+        test-compile-zcash-blake test-exec-zcash-blake test-run-zcash-blake \
         stwo-prover-build test-prove-fib test-verify-fib test-prove-blake2b test-verify-blake2b test-prove-blake2s test-verify-blake2s \
+        test-prove-blake2s-params test-prove-blake2b-params test-verify-blake2s-params test-verify-blake2b-params \
+        test-prove-zcash-blake test-verify-zcash-blake \
         test-prove-all test-verify-all test-full-fib test-full-blake2b test-full-blake2s \
+        test-full-blake2s-params test-full-blake2b-params test-full-zcash-blake \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
         air-codegen air-codegen-all air-write-json \
-        benchmark benchmark-quick test-resources-fib test-resources-blake2s test-resources-blake2b
+        benchmark benchmark-quick test-resources-fib test-resources-blake2s test-resources-blake2b test-resources-zcash-blake \
+        clean clean-tests clean-cargo clean-scarb
 
 # Directories
 BUILD_DIR := target/tests
@@ -55,6 +62,27 @@ test-compile-blake2s: $(BUILD_DIR)
 		--output-path $(BUILD_DIR)/blake2s_exec.json \
 		tests/src/blake2s_test.cairo
 
+test-compile-blake2s-params: $(BUILD_DIR)
+	$(CAIRO_EXECUTE) \
+		--single-file \
+		--build-only \
+		--output-path $(BUILD_DIR)/blake2s_params_exec.json \
+		tests/src/blake2s_params_test.cairo
+
+test-compile-blake2b-params: $(BUILD_DIR)
+	$(CAIRO_EXECUTE) \
+		--single-file \
+		--build-only \
+		--output-path $(BUILD_DIR)/blake2b_params_exec.json \
+		tests/src/blake2b_params_test.cairo
+
+test-compile-zcash-blake: $(BUILD_DIR)
+	$(CAIRO_EXECUTE) \
+		--single-file \
+		--build-only \
+		--output-path $(BUILD_DIR)/zcash_blake_exec.json \
+		tests/src/zcash_blake_test.cairo
+
 # Step 2: Execute prebuilt test executables
 test-exec-fib:
 	$(CAIRO_EXECUTE) \
@@ -80,12 +108,42 @@ test-exec-blake2s:
 		--output-path $(BUILD_DIR)/blake2s.pie \
 		$(BUILD_DIR)/blake2s_exec.json
 
+test-exec-blake2s-params:
+	$(CAIRO_EXECUTE) \
+		--prebuilt \
+		--layout all_cairo \
+		--print-outputs \
+		--output-path $(BUILD_DIR)/blake2s_params.pie \
+		$(BUILD_DIR)/blake2s_params_exec.json
+
+test-exec-blake2b-params:
+	$(CAIRO_EXECUTE) \
+		--prebuilt \
+		--layout all_cairo \
+		--print-outputs \
+		--output-path $(BUILD_DIR)/blake2b_params.pie \
+		$(BUILD_DIR)/blake2b_params_exec.json
+
+test-exec-zcash-blake:
+	$(CAIRO_EXECUTE) \
+		--prebuilt \
+		--layout all_cairo \
+		--print-outputs \
+		--output-path $(BUILD_DIR)/zcash_blake.pie \
+		$(BUILD_DIR)/zcash_blake_exec.json
+
 # Combined: compile and run in one command
 test-run-fib: test-compile-fib test-exec-fib
 
 test-run-blake2b: test-compile-blake2b test-exec-blake2b
 
 test-run-blake2s: test-compile-blake2s test-exec-blake2s
+
+test-run-blake2s-params: test-compile-blake2s-params test-exec-blake2s-params
+
+test-run-blake2b-params: test-compile-blake2b-params test-exec-blake2b-params
+
+test-run-zcash-blake: test-compile-zcash-blake test-exec-zcash-blake
 
 # Run all tests
 test-run-all: test-run-fib
@@ -127,6 +185,24 @@ test-prove-blake2s: test-compile-blake2s
 		--program_type executable \
 		--proof_path ../../$(BUILD_DIR)/blake2s_proof.json
 
+test-prove-blake2s-params: test-compile-blake2s-params
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin run_and_prove -- \
+		--program ../../$(BUILD_DIR)/blake2s_params_exec.json \
+		--program_type executable \
+		--proof_path ../../$(BUILD_DIR)/blake2s_params_proof.json
+
+test-prove-blake2b-params: test-compile-blake2b-params
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin run_and_prove -- \
+		--program ../../$(BUILD_DIR)/blake2b_params_exec.json \
+		--program_type executable \
+		--proof_path ../../$(BUILD_DIR)/blake2b_params_proof.json
+
+test-prove-zcash-blake: test-compile-zcash-blake
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin run_and_prove -- \
+		--program ../../$(BUILD_DIR)/zcash_blake_exec.json \
+		--program_type executable \
+		--proof_path ../../$(BUILD_DIR)/zcash_blake_proof.json
+
 # Verify proofs (using verify binary)
 test-verify-fib:
 	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
@@ -146,6 +222,24 @@ test-verify-blake2s:
 		--channel_hash blake2s \
 		--pp_trace canonical
 
+test-verify-blake2s-params:
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
+		--proof_path ../../$(BUILD_DIR)/blake2s_params_proof.json \
+		--channel_hash blake2s \
+		--pp_trace canonical
+
+test-verify-blake2b-params:
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
+		--proof_path ../../$(BUILD_DIR)/blake2b_params_proof.json \
+		--channel_hash blake2s \
+		--pp_trace canonical
+
+test-verify-zcash-blake:
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin verify -- \
+		--proof_path ../../$(BUILD_DIR)/zcash_blake_proof.json \
+		--channel_hash blake2s \
+		--pp_trace canonical
+
 # Combined targets
 test-prove-all: test-prove-fib
 
@@ -157,6 +251,12 @@ test-full-fib: test-prove-fib test-verify-fib
 test-full-blake2b: test-prove-blake2b test-verify-blake2b
 
 test-full-blake2s: test-prove-blake2s test-verify-blake2s
+
+test-full-blake2s-params: test-prove-blake2s-params test-verify-blake2s-params
+
+test-full-blake2b-params: test-prove-blake2b-params test-verify-blake2b-params
+
+test-full-zcash-blake: test-prove-zcash-blake test-verify-zcash-blake
 
 # =============================================================================
 # Subproject build and test targets
@@ -271,8 +371,16 @@ test-resources-blake2b: test-compile-blake2b
 	@echo "Resources saved to $(BUILD_DIR)/blake2b_resources.json"
 	@cat $(BUILD_DIR)/blake2b_resources.json | python3 -m json.tool
 
+test-resources-zcash-blake: test-compile-zcash-blake
+	cd $(STWO_PROVER_DIR) && cargo run --release --bin get_execution_resources -- \
+		--program ../../$(BUILD_DIR)/zcash_blake_exec.json \
+		--program_type executable \
+		--output ../../$(BUILD_DIR)/zcash_blake_resources.json
+	@echo "Resources saved to $(BUILD_DIR)/zcash_blake_resources.json"
+	@cat $(BUILD_DIR)/zcash_blake_resources.json | python3 -m json.tool
+
 # Quick benchmark: just execution resources without proving
-benchmark-quick: test-resources-fib test-resources-blake2s test-resources-blake2b
+benchmark-quick: test-resources-fib test-resources-blake2s test-resources-blake2b test-resources-zcash-blake
 	@echo ""
 	@echo "=== Quick Benchmark Summary ==="
 	@echo "Fibonacci resources:"
@@ -281,6 +389,40 @@ benchmark-quick: test-resources-fib test-resources-blake2s test-resources-blake2
 	@cat $(BUILD_DIR)/blake2s_resources.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Cairo steps: {d[\"verify_instructions_count\"]}')"
 	@echo "Blake2b resources:"
 	@cat $(BUILD_DIR)/blake2b_resources.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Cairo steps: {d[\"verify_instructions_count\"]}')"
+	@echo "Zcash Blake resources:"
+	@cat $(BUILD_DIR)/zcash_blake_resources.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Cairo steps: {d[\"verify_instructions_count\"]}')"
 	@echo ""
 	@echo "File sizes:"
 	@ls -lh $(BUILD_DIR)/*_exec.json $(BUILD_DIR)/*_proof.json 2>/dev/null || echo "  (run 'make benchmark' first for proof sizes)"
+
+# =============================================================================
+# Clean targets
+# =============================================================================
+# Remove build artifacts and cargo target directories
+#
+# Usage:
+#   make clean           # Clean all build artifacts
+#   make clean-tests     # Clean only test outputs
+#   make clean-cargo     # Clean all cargo target directories
+#   make clean-scarb     # Clean scarb build directories
+# =============================================================================
+
+# Clean test build outputs
+clean-tests:
+	rm -rf $(BUILD_DIR)
+
+# Clean all cargo target directories in subprojects
+clean-cargo:
+	cd cairo && cargo clean
+	cd cairo-vm && cargo clean
+	cd stwo-cairo/stwo_cairo_prover && cargo clean
+	cd stwo-air-infra && cargo clean
+
+# Clean scarb build directories
+clean-scarb:
+	rm -rf tests/target
+	rm -rf zoro/target
+
+# Clean everything
+clean: clean-tests clean-cargo clean-scarb
+	@echo "Cleaned all build artifacts"
