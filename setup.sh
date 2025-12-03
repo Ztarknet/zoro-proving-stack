@@ -93,6 +93,7 @@ echo ""
 echo "To build all components, run:"
 echo "  make cairo-build        # Build Cairo compiler"
 echo "  make cairo-vm-build     # Build Cairo VM"
+echo "  make scarb-build        # Build Scarb package manager"
 echo "  make stwo-cairo-build   # Build Stwo prover"
 if [[ -d "stwo-air-infra/.git" ]]; then
 echo "  make stwo-air-infra-build  # Build AIR infrastructure"

@@ -10,6 +10,7 @@ Primary use case: Development of [Zoro](https://github.com/starkware-bitcoin/zor
 zoro-proving-stack/
 ├── cairo/          # Cairo compiler (Ztarknet fork)
 ├── cairo-vm/       # Cairo VM implementation (Ztarknet fork)
+├── scarb/          # Scarb - Cairo package manager (Ztarknet fork)
 ├── stwo-cairo/     # Stwo prover for Cairo programs (Ztarknet fork)
 ├── stwo-air-infra/ # AIR infrastructure (private, optional)
 ├── zoro/           # Zoro - Zcash ZK client in Cairo
@@ -23,7 +24,6 @@ zoro-proving-stack/
 
 - Git
 - Rust 1.89+ (`rustup install 1.89`)
-- [Scarb](https://docs.swmansion.com/scarb/) (Cairo package manager)
 
 ### Setup
 
@@ -83,6 +83,7 @@ Cairo Source -> Cairo Build -> Cairo VM -> Stwo Prover -> Stwo Verifier
 |-----------|--------|-------------|
 | `cairo` | `blake2b` | Cairo compiler with Blake2b support |
 | `cairo-vm` | `blake2b` | Cairo VM with Blake2b hints |
+| `scarb` | `blake2b` | Cairo package manager (Scarb) |
 | `stwo-cairo` | `blake2b` | Stwo prover integration |
 | `zoro` | `main` | Zcash validation logic in Cairo |
 
@@ -132,6 +133,7 @@ git push origin my-feature
 |--------|-------------|
 | `make cairo-build` | Build Cairo compiler |
 | `make cairo-vm-build` | Build Cairo VM |
+| `make scarb-build` | Build Scarb package manager |
 | `make stwo-cairo-build` | Build Stwo prover |
 | `make stwo-air-infra-build` | Build AIR infrastructure |
 | `make test-build` | Build test programs |

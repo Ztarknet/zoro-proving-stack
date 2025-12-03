@@ -10,6 +10,7 @@
         test-full-blake2s-params test-full-blake2b-params test-full-zcash-blake \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
+        scarb-build scarb-build-release \
         air-codegen air-codegen-all air-write-json \
         benchmark benchmark-quick test-resources-fib test-resources-blake2s test-resources-blake2b test-resources-zcash-blake \
         clean clean-tests clean-cargo clean-scarb
@@ -18,13 +19,14 @@
 BUILD_DIR := target/tests
 CAIRO_EXECUTE := ./cairo/target/release/cairo-execute
 STWO_PROVER_DIR := ./stwo-cairo/stwo_cairo_prover
+SCARB := ./scarb/target/debug/scarb
 
-# Test targets using scarb
+# Test targets using local scarb fork
 test-build:
-	cd tests && scarb build
+	cd tests && ../$(SCARB) build
 
 test-execute:
-	cd tests && scarb execute --print-program-output
+	cd tests && ../$(SCARB) execute --print-program-output
 
 # =============================================================================
 # Test targets using local cairo-execute (from forked cairo compiler)
@@ -290,10 +292,17 @@ cairo-vm-test:
 	cd cairo-vm && . cairo-vm-env/bin/activate && make test
 
 zoro-build:
-	cd zoro && scarb --profile release build
+	cd zoro && ../$(SCARB) --profile release build
 
 zoro-test:
-	cd zoro && scarb cairo-test
+	cd zoro && ../$(SCARB) cairo-test
+
+scarb-build:
+	cd scarb && cargo build -p scarb --no-default-features
+	cd scarb && cargo clean -p scarb-execute && cargo build -p scarb-execute
+
+scarb-build-release:
+	cd scarb && cargo build -p scarb --no-default-features --release
 
 # =============================================================================
 # AIR Code Generation (stwo-air-infra -> stwo-cairo)
@@ -415,6 +424,7 @@ clean-tests:
 clean-cargo:
 	cd cairo && cargo clean
 	cd cairo-vm && cargo clean
+	cd scarb && cargo clean
 	cd stwo-cairo/stwo_cairo_prover && cargo clean
 	cd stwo-air-infra && cargo clean
 

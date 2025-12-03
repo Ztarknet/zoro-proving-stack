@@ -14,3 +14,7 @@
 	path = zoro
 	url = https://github.com/starkware-bitcoin/zoro
 	branch = main
+[submodule "scarb"]
+	path = scarb
+	url = git@github.com:Ztarknet/scarb.git
+	branch = blake2b

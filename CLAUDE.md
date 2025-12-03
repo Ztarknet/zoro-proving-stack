@@ -14,6 +14,7 @@ Primary use case: Development of [Zoro](https://github.com/starkware-bitcoin/zor
 zoro-proving-stack/
 ├── cairo/          # Cairo compiler (Rust) - Ztarknet fork
 ├── cairo-vm/       # Cairo VM implementation (Rust) - Ztarknet fork
+├── scarb/          # Cairo package manager (Rust) - Ztarknet fork
 ├── stwo-cairo/     # Stwo prover for Cairo programs - Ztarknet fork
 ├── stwo-air-infra/ # AIR infrastructure for Stwo (private, optional)
 ├── zoro/           # Zoro - Zcash ZK client in Cairo
@@ -28,6 +29,7 @@ zoro-proving-stack/
 ```bash
 make cairo-build          # Build Cairo compiler (requires rust +1.89)
 make cairo-vm-build       # Build Cairo VM
+make scarb-build          # Build Scarb package manager
 make stwo-cairo-build     # Build Stwo Cairo prover
 make stwo-air-infra-build # Build AIR infrastructure
 make zoro-build           # Build main Zoro project (release)
@@ -94,6 +96,10 @@ Each subproject has its own CLAUDE.md. Use root Makefile targets for builds (see
 ### Cairo VM (cairo-vm/)
 - Layouts: Use `all_cairo` for general purpose
 - Run `make cairo-vm-deps` before `make cairo-vm-test`
+
+### Scarb (scarb/)
+- Cairo package manager fork with Blake2b support
+- Build: `make scarb-build` or `make scarb-build-release`
 
 ### Stwo Prover (stwo-cairo/)
 - Cairo programs must have `enable-gas = false`
