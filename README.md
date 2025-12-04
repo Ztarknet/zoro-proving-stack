@@ -11,6 +11,7 @@ zoro-proving-stack/
 ├── cairo/          # Cairo compiler (Ztarknet fork)
 ├── cairo-vm/       # Cairo VM implementation (Ztarknet fork)
 ├── scarb/          # Scarb - Cairo package manager (Ztarknet fork)
+├── scarb-burn/     # Scarb extension for flamegraphs & profiling
 ├── stwo-cairo/     # Stwo prover for Cairo programs (Ztarknet fork)
 ├── stwo-air-infra/ # AIR infrastructure (private, optional)
 ├── zoro/           # Zoro - Zcash ZK client in Cairo
@@ -84,6 +85,7 @@ Cairo Source -> Cairo Build -> Cairo VM -> Stwo Prover -> Stwo Verifier
 | `cairo` | `blake2b` | Cairo compiler with Blake2b support |
 | `cairo-vm` | `blake2b` | Cairo VM with Blake2b hints |
 | `scarb` | `blake2b` | Cairo package manager (Scarb) |
+| `scarb-burn` | `main` | Flamegraph & pprof profiling for Cairo |
 | `stwo-cairo` | `blake2b` | Stwo prover integration |
 | `zoro` | `main` | Zcash validation logic in Cairo |
 
