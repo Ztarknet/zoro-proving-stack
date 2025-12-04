@@ -1,4 +1,5 @@
-.PHONY: test-build test-execute test-run-fib test-run-blake2b test-run-blake2s test-run-all \
+.PHONY: test-build test-execute test-steps test-steps-fib test-steps-blake2s test-steps-blake2b \
+        test-run-fib test-run-blake2b test-run-blake2s test-run-all \
         test-compile-fib test-compile-blake2b test-compile-blake2s test-exec-fib test-exec-blake2b test-exec-blake2s \
         test-compile-blake2s-params test-compile-blake2b-params test-exec-blake2s-params test-exec-blake2b-params \
         test-run-blake2s-params test-run-blake2b-params \
@@ -10,9 +11,10 @@
         test-full-blake2s-params test-full-blake2b-params test-full-zcash-blake \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
-        scarb-build scarb-build-release \
+        scarb-build scarb-build-release scarb-burn-build \
         air-codegen air-codegen-all air-write-json \
         benchmark benchmark-quick test-resources-fib test-resources-blake2s test-resources-blake2b test-resources-zcash-blake \
+        zoro-flamegraph zoro-flamegraph-build zoro-flamegraph-blake2b \
         clean clean-tests clean-cargo clean-scarb
 
 # Directories
@@ -27,6 +29,22 @@ test-build:
 
 test-execute:
 	cd tests && ../$(SCARB) execute --print-program-output
+
+# Get step count for specific test executables
+test-steps-fib:
+	@echo "=== Fibonacci ==="
+	@cd tests && ../$(SCARB) execute --executable-name fibonacci --print-resource-usage 2>&1 | grep -E '(steps:|memory holes:|range_check:)'
+
+test-steps-blake2s:
+	@echo "=== Blake2s ==="
+	@cd tests && ../$(SCARB) execute --executable-name blake2s --print-resource-usage 2>&1 | grep -E '(steps:|memory holes:|range_check:)'
+
+test-steps-blake2b:
+	@echo "=== Blake2b ==="
+	@cd tests && ../$(SCARB) execute --executable-name blake2b --print-resource-usage 2>&1 | grep -E '(steps:|memory holes:|range_check:)'
+
+# Run all step counts
+test-steps: test-steps-fib test-steps-blake2s test-steps-blake2b
 
 # =============================================================================
 # Test targets using local cairo-execute (from forked cairo compiler)
@@ -303,6 +321,83 @@ scarb-build:
 
 scarb-build-release:
 	cd scarb && cargo build -p scarb --no-default-features --release
+
+scarb-burn-build:
+	cd scarb-burn && cargo build --release
+
+# =============================================================================
+# Flamegraph profiling (using scarb-burn)
+# =============================================================================
+# Generate flame charts for Cairo programs to visualize execution costs
+#
+# Usage:
+#   make scarb-burn-build      # Build the scarb-burn tool (one-time)
+#   make zoro-flamegraph       # Generate flamegraph for light_100 test
+#   make zoro-flamegraph-build # Build client without syscalls for profiling
+#
+# Note: Must build client with --no-default-features to disable syscalls,
+# as syscalls require gas which is disabled in the zoro workspace.
+# =============================================================================
+
+SCARB_BURN := ./scarb-burn/target/release/scarb-burn
+ZORO_CLIENT_DIR := zoro/packages/client
+ZORO_ARGS_SCRIPT := zoro/scripts/data/format_args.py
+
+# Build zoro client without syscalls feature (required for profiling)
+zoro-flamegraph-build:
+	cd $(ZORO_CLIENT_DIR) && ../../../$(SCARB) build --no-default-features
+
+# Generate flamegraph for light_100 integration test
+zoro-flamegraph: zoro-flamegraph-build
+	@mkdir -p $(BUILD_DIR)
+	python3 $(ZORO_ARGS_SCRIPT) \
+		--input_file $(ZORO_CLIENT_DIR)/tests/data/light_100.json \
+		> $(BUILD_DIR)/zoro_arguments.json
+	cd $(ZORO_CLIENT_DIR) && \
+		PATH="../../../scarb/target/debug:$$PATH" \
+		SCARB_TARGET_DIR="$$(pwd)/../../target" \
+		SCARB_PROFILE="dev" \
+		../../../$(SCARB_BURN) \
+		--no-build \
+		--arguments-file ../../../$(BUILD_DIR)/zoro_arguments.json \
+		--output-file ../../../$(BUILD_DIR)/zoro_flamegraph.svg \
+		--open-in-browser
+	@echo "Flamegraph written to $(BUILD_DIR)/zoro_flamegraph.svg"
+
+# Generate flamegraph for light_100 with blake2b feature enabled
+zoro-flamegraph-blake2b:
+	@mkdir -p $(BUILD_DIR)
+	python3 $(ZORO_ARGS_SCRIPT) \
+		--input_file $(ZORO_CLIENT_DIR)/tests/data/light_100.json \
+		> $(BUILD_DIR)/zoro_arguments.json
+	cd $(ZORO_CLIENT_DIR) && \
+		PATH="../../../scarb/target/debug:$$PATH" \
+		SCARB_TARGET_DIR="$$(pwd)/../../target" \
+		SCARB_PROFILE="dev" \
+		../../../$(SCARB_BURN) \
+		--no-default-features \
+		--features blake2b \
+		--arguments-file ../../../$(BUILD_DIR)/zoro_arguments.json \
+		--output-file ../../../$(BUILD_DIR)/zoro_flamegraph_blake2b.svg \
+		--open-in-browser
+	@echo "Flamegraph written to $(BUILD_DIR)/zoro_flamegraph_blake2b.svg"
+
+zoro-flamegraph-blake2b-mock:
+	@mkdir -p $(BUILD_DIR)
+	python3 $(ZORO_ARGS_SCRIPT) \
+		--input_file $(ZORO_CLIENT_DIR)/tests/data/light_100.json \
+		> $(BUILD_DIR)/zoro_arguments.json
+	cd $(ZORO_CLIENT_DIR) && \
+		PATH="../../../scarb/target/debug:$$PATH" \
+		SCARB_TARGET_DIR="$$(pwd)/../../target" \
+		SCARB_PROFILE="dev" \
+		../../../$(SCARB_BURN) \
+		--no-default-features \
+		--features blake2b_mock \
+		--arguments-file ../../../$(BUILD_DIR)/zoro_arguments.json \
+		--output-file ../../../$(BUILD_DIR)/zoro_flamegraph_blake2b_mock.svg \
+		--open-in-browser
+	@echo "Flamegraph written to $(BUILD_DIR)/zoro_flamegraph_blake2b_mock.svg"
 
 # =============================================================================
 # AIR Code Generation (stwo-air-infra -> stwo-cairo)

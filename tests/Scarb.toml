@@ -6,7 +6,17 @@ edition = "2024_07"
 [dependencies]
 cairo_execute = "2.12.2"
 
-[executable]
+[[target.executable]]
+name = "fibonacci"
+function = "tests::fibonacci_test::main"
+
+[[target.executable]]
+name = "blake2s"
+function = "tests::blake2s_test::main"
+
+[[target.executable]]
+name = "blake2b"
+function = "tests::blake2b_test::main"
 
 [cairo]
 enable-gas = false
