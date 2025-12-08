@@ -316,10 +316,22 @@ zoro-test:
 	cd zoro && ../$(SCARB) cairo-test
 
 scarb-build:
+	@# Clear Scarb std cache to ensure corelib changes are picked up
+	rm -rf ~/Library/Caches/com.swmansion.scarb/registry/std/
+	rm -rf ~/.cache/scarb/registry/std/
+	@# Force scarb to re-embed corelib by cleaning build artifacts and touching build.rs
+	rm -rf scarb/target/debug/build/scarb-*
+	touch scarb/scarb/build.rs
 	cd scarb && cargo build -p scarb --no-default-features
 	cd scarb && cargo clean -p scarb-execute && cargo build -p scarb-execute
 
 scarb-build-release:
+	@# Clear Scarb std cache to ensure corelib changes are picked up
+	rm -rf ~/Library/Caches/com.swmansion.scarb/registry/std/
+	rm -rf ~/.cache/scarb/registry/std/
+	@# Force scarb to re-embed corelib by cleaning build artifacts and touching build.rs
+	rm -rf scarb/target/release/build/scarb-*
+	touch scarb/scarb/build.rs
 	cd scarb && cargo build -p scarb --no-default-features --release
 
 scarb-burn-build:
