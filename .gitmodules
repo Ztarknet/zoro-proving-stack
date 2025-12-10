@@ -22,3 +22,7 @@
 	path = scarb-burn
 	url = https://github.com/b-j-roberts/scarb-burn
 	branch = brandon/blake2b
+[submodule "proving-utils"]
+	path = proving-utils
+	url = https://github.com/Ztarknet/proving-utils
+	branch = main
