@@ -1,6 +1,6 @@
 [submodule "cairo"]
 	path = cairo
-	url = git@github.com:Ztarknet/cairo.git
+	url = https://github.com/Ztarknet/cairo
 	branch = blake2b
 [submodule "cairo-vm"]
 	path = cairo-vm
@@ -8,7 +8,7 @@
 	branch = blake2b
 [submodule "stwo-cairo"]
 	path = stwo-cairo
-	url = git@github.com:Ztarknet/stwo-cairo.git
+	url = https://github.com/Ztarknet/stwo-cairo
 	branch = blake2b
 [submodule "zoro"]
 	path = zoro
@@ -16,7 +16,7 @@
   branch = brandon/equihash-optimizations
 [submodule "scarb"]
 	path = scarb
-	url = git@github.com:Ztarknet/scarb.git
+	url = https://github.com/Ztarknet/scarb
 	branch = blake2b
 [submodule "scarb-burn"]
 	path = scarb-burn
