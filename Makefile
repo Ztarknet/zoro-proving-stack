@@ -10,8 +10,10 @@
         test-prove-all test-verify-all test-full-fib test-full-blake2b test-full-blake2s \
         test-full-blake2s-params test-full-blake2b-params test-full-zcash-blake \
         stwo-air-infra-build stwo-air-infra-test stwo-cairo-build stwo-cairo-test \
+        stwo-cairo-verifier-build stwo-cairo-verifier-test \
         cairo-build cairo-test cairo-vm-build cairo-vm-deps cairo-vm-test zoro-build zoro-test \
-        scarb-build scarb-build-release scarb-burn-build \
+        scarb-build scarb-build-release scarb-test scarb-burn-build scarb-burn-test \
+        proving-utils-build proving-utils-test \
         air-codegen air-codegen-all air-write-json \
         benchmark benchmark-quick test-resources-fib test-resources-blake2s test-resources-blake2b test-resources-zcash-blake \
         zoro-flamegraph zoro-flamegraph-build zoro-flamegraph-blake2b \
@@ -21,7 +23,7 @@
 BUILD_DIR := target/tests
 CAIRO_EXECUTE := ./cairo/target/release/cairo-execute
 STWO_PROVER_DIR := ./stwo-cairo/stwo_cairo_prover
-SCARB := ./scarb/target/debug/scarb
+SCARB := ./scarb/target/release/scarb
 
 # Test targets using local scarb fork
 test-build:
@@ -294,6 +296,12 @@ stwo-cairo-build:
 stwo-cairo-test:
 	cd stwo-cairo/stwo_cairo_prover && cargo test
 
+stwo-cairo-verifier-build:
+	cd stwo-cairo/stwo_cairo_verifier && ../../$(SCARB) build --features qm31_opcode
+
+stwo-cairo-verifier-test:
+	cd stwo-cairo/stwo_cairo_verifier && ../../$(SCARB) test --features qm31_opcode
+
 cairo-build:
 	cd cairo && cargo +1.89 build --release
 
@@ -307,13 +315,16 @@ cairo-vm-deps:
 	cd cairo-vm && make deps
 
 cairo-vm-test:
+	@if [ ! -d "cairo-vm/cairo-vm-env" ]; then $(MAKE) cairo-vm-deps; fi
 	cd cairo-vm && . cairo-vm-env/bin/activate && make test
 
 zoro-build:
 	cd zoro && ../$(SCARB) --profile release build
+	cd zoro && cargo build --release
 
 zoro-test:
 	cd zoro && ../$(SCARB) cairo-test
+	cd zoro && cargo test
 
 scarb-build:
 	@# Clear Scarb std cache to ensure corelib changes are picked up
@@ -336,6 +347,18 @@ scarb-build-release:
 
 scarb-burn-build:
 	cd scarb-burn && cargo build --release
+
+scarb-test:
+	cd scarb && cargo test
+
+scarb-burn-test:
+	cd scarb-burn && cargo test
+
+proving-utils-build:
+	cd proving-utils && cargo build --release
+
+proving-utils-test:
+	cd proving-utils && cargo test
 
 # =============================================================================
 # Flamegraph profiling (using scarb-burn)
@@ -366,7 +389,7 @@ zoro-flamegraph: zoro-flamegraph-build
 		--input_file $(ZORO_CLIENT_DIR)/tests/data/light_100.json \
 		> $(BUILD_DIR)/zoro_arguments.json
 	cd $(ZORO_CLIENT_DIR) && \
-		PATH="../../../scarb/target/debug:$$PATH" \
+		PATH="../../../scarb/target/release:$$PATH" \
 		SCARB_TARGET_DIR="$$(pwd)/../../target" \
 		SCARB_PROFILE="dev" \
 		../../../$(SCARB_BURN) \
@@ -383,7 +406,7 @@ zoro-flamegraph-blake2b:
 		--input_file $(ZORO_CLIENT_DIR)/tests/data/light_100.json \
 		> $(BUILD_DIR)/zoro_arguments.json
 	cd $(ZORO_CLIENT_DIR) && \
-		PATH="../../../scarb/target/debug:$$PATH" \
+		PATH="../../../scarb/target/release:$$PATH" \
 		SCARB_TARGET_DIR="$$(pwd)/../../target" \
 		SCARB_PROFILE="dev" \
 		../../../$(SCARB_BURN) \
@@ -400,7 +423,7 @@ zoro-flamegraph-blake2b-mock:
 		--input_file $(ZORO_CLIENT_DIR)/tests/data/light_100.json \
 		> $(BUILD_DIR)/zoro_arguments.json
 	cd $(ZORO_CLIENT_DIR) && \
-		PATH="../../../scarb/target/debug:$$PATH" \
+		PATH="../../../scarb/target/release:$$PATH" \
 		SCARB_TARGET_DIR="$$(pwd)/../../target" \
 		SCARB_PROFILE="dev" \
 		../../../$(SCARB_BURN) \
@@ -532,8 +555,11 @@ clean-cargo:
 	cd cairo && cargo clean
 	cd cairo-vm && cargo clean
 	cd scarb && cargo clean
+	cd scarb-burn && cargo clean
 	cd stwo-cairo/stwo_cairo_prover && cargo clean
 	cd stwo-air-infra && cargo clean
+	cd proving-utils && cargo clean
+	cd zoro && cargo clean
 
 # Clean scarb build directories
 clean-scarb:
