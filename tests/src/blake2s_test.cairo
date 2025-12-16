@@ -1,4 +1,4 @@
-use core::blake::{Blake2sState, Blake2sInput, blake2s_compress, blake2s_finalize};
+use core::blake::blake2s_finalize;
 use core::box::BoxTrait;
 
 #[executable]

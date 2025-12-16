@@ -67,6 +67,45 @@ make test-full-blake2s    # Blake2s: compile -> prove -> verify
 make test-full-blake2b    # Blake2b: compile -> prove -> verify
 ```
 
+## Proving Zcash Blocks
+
+The primary workflow for Zoro is generating STARK proofs for Zcash block validation. This uses the `assumevalid` package to prove that blocks trace back to genesis with sufficient confirmations.
+
+### 1. Start the Bridge Node
+
+The bridge node indexes Zcash blocks and serves them to the prover. Run this in a separate terminal:
+
+```bash
+make run-zoro-bridge-indexer
+```
+
+This connects to the Zcash RPC at `https://rpc.mainnet.ztarknet.cash` by default.
+
+### 2. Generate Proofs
+
+Once the indexer is running, generate proofs in another terminal:
+
+```bash
+make run-zoro-assumevalid-prove
+```
+
+By default this proves 2 blocks with step size 1 (good for local testing). Customize with:
+
+```bash
+# Prove 10 blocks, 5 blocks per proof
+make run-zoro-assumevalid-prove ZORO_TOTAL_BLOCKS=10 ZORO_STEP_SIZE=5
+```
+
+### Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ZORO_BRIDGE_RPC_URL` | `https://rpc.mainnet.ztarknet.cash` | Zcash RPC endpoint |
+| `ZORO_BRIDGE_URL` | `http://127.0.0.1:5000` | Local bridge node URL |
+| `ZORO_TOTAL_BLOCKS` | `2` | Total number of blocks to prove |
+| `ZORO_STEP_SIZE` | `1` | Number of blocks per proof |
+| `ZORO_PROOF_OUTPUT_DIR` | `/tmp/proofs` | Directory for generated proofs |
+
 ## Architecture
 
 The proving pipeline:
@@ -133,11 +172,16 @@ git push origin my-feature
 
 | Target | Description |
 |--------|-------------|
+| **Zoro Proving** | |
+| `make run-zoro-bridge-indexer` | Start the Zcash bridge node indexer |
+| `make run-zoro-assumevalid-prove` | Generate proofs for Zcash blocks |
+| **Build** | |
 | `make cairo-build` | Build Cairo compiler |
 | `make cairo-vm-build` | Build Cairo VM |
 | `make scarb-build` | Build Scarb package manager |
 | `make stwo-cairo-build` | Build Stwo prover |
 | `make stwo-air-infra-build` | Build AIR infrastructure |
+| **Test** | |
 | `make test-build` | Build test programs |
 | `make test-execute` | Run test programs |
 | `make test-full-fib` | Full pipeline for fibonacci |
