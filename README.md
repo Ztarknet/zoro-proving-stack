@@ -96,6 +96,18 @@ By default this proves 2 blocks with step size 1 (good for local testing). Custo
 make run-zoro-assumevalid-prove ZORO_TOTAL_BLOCKS=10 ZORO_STEP_SIZE=5
 ```
 
+### 3. Verify Proofs
+
+Given a running indexer and a generated proof you can verify it via CLI tool.
+
+First, install it locally:
+
+```bash
+make zoro-install-cli
+```
+
+Then follow the [instructions](./zoro/crates/zoro-spv-verify/).
+
 ### Configuration
 
 | Variable | Default | Description |

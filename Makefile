@@ -446,6 +446,9 @@ zoro-build:
 	cd zoro && ../$(SCARB) --profile release build
 	cd zoro && cargo build --release
 
+zoro-install-cli:
+	cd zoro && cargo install --path crates/zoro-spv-verify --bin spv-cli
+
 zoro-test:
 	cd zoro && ../$(SCARB) cairo-test
 	cd zoro && cargo test
